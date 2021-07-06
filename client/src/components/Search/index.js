@@ -1,21 +1,26 @@
+import { CLEAR_DATA, SET_GAME_DATA } from '../../utils/context/searchActions';
 import React, { useState } from 'react';
 
 import { getGameData } from '../../utils/API';
-
-// TODO: handleSubmit function
-
-// TODO: Setup Context to save search results
+import { useSearchContext } from '../../utils/context/SearchState';
 
 // TODO: localstorage to save searched titles - setup last
 // TODO: on error, set an error component to display with error message
 
 export const Search = () => {
+	// search bar form state
 	const [searchTerm, setSearchTerm] = useState('');
+
+	// search context
+	const [state, dispatch] = useSearchContext();
+	console.log('state:', state);
 
 	const handleChange = e => setSearchTerm(e.target.value);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+		// clear the context state on a new search
+		dispatch({ type: CLEAR_DATA });
 
 		try {
 			if (searchTerm === '') {
@@ -32,6 +37,10 @@ export const Search = () => {
 
 			const gameData = await response.json();
 			console.log('gameData:', gameData);
+
+			// set the context gameResults to the response's data
+			dispatch({ type: SET_GAME_DATA, payload: gameData.results });
+
 			setSearchTerm('');
 		} catch (err) {
 			console.error(`There was an error: ${err.message})`);

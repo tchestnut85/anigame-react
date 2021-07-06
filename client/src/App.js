@@ -2,12 +2,15 @@ import './index.css';
 
 import { Main } from './pages/Main';
 import { NavBar } from './components/NavBar';
+import { SearchProvider } from './utils/context/SearchState';
 
 function App() {
 	return (
 		<>
-			<NavBar />
-			<Main />
+			<SearchProvider>
+				<NavBar />
+				<Main />
+			</SearchProvider>
 		</>
 	);
 }

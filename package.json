@@ -1,0 +1,18 @@
+{
+	"name": "anigame-react",
+	"version": "1.0.0",
+	"description": "AniGame - search for an anime title to find related video games",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/tchestnut85/anigame-react.git"
+	},
+	"author": "Tom Chestnut",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/tchestnut85/anigame-react/issues"
+	},
+	"homepage": "https://github.com/tchestnut85/anigame-react#readme"
+}

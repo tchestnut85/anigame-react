@@ -1,4 +1,8 @@
-import { CLEAR_DATA, SET_GAME_DATA } from '../../utils/context/searchActions';
+import {
+	CLEAR_DATA,
+	SET_GAME_DATA,
+	SET_QUERY,
+} from '../../utils/context/searchActions';
 import React, { useState } from 'react';
 
 import { getGameData } from '../../utils/API';
@@ -13,7 +17,6 @@ export const Search = () => {
 
 	// search context
 	const [state, dispatch] = useSearchContext();
-	console.log('state:', state);
 
 	const handleChange = e => setSearchTerm(e.target.value);
 
@@ -27,7 +30,6 @@ export const Search = () => {
 				throw Error('You must enter something to search for.');
 			}
 			const response = await getGameData(searchTerm.trim().toLowerCase());
-			console.log('response:', response);
 
 			if (!response.ok) {
 				throw Error(
@@ -36,11 +38,10 @@ export const Search = () => {
 			}
 
 			const gameData = await response.json();
-			console.log('gameData:', gameData);
 
 			// set the context gameResults to the response's data
+			dispatch({ type: SET_QUERY, payload: searchTerm });
 			dispatch({ type: SET_GAME_DATA, payload: gameData.results });
-
 			setSearchTerm('');
 		} catch (err) {
 			console.error(`There was an error: ${err.message})`);

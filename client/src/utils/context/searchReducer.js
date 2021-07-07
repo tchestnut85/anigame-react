@@ -1,18 +1,29 @@
-import { CLEAR_DATA, SET_ERROR, SET_GAME_DATA } from './searchActions';
+import {
+	CLEAR_DATA,
+	SET_ERROR,
+	SET_GAME_DATA,
+	SET_QUERY,
+} from './searchActions';
 
 import { useReducer } from 'react';
 
 const reducer = (state, action) => {
 	switch (action.type) {
+		case SET_QUERY:
+			return {
+				...state,
+				query: action.payload,
+			};
 		case SET_GAME_DATA:
 			return {
 				...state,
-				gameResults: action.payload,
+				gameState: action.payload,
 			};
 		case CLEAR_DATA:
 			return {
 				...state,
-				gameResults: null,
+				gameState: [],
+				animeState: [],
 			};
 		case SET_ERROR:
 			let errorMsg = action.payload;

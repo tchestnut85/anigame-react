@@ -24,6 +24,7 @@ export const ConsoleButtons = () => {
 					<div className='columns'>
 						{consoles.map(console => (
 							<ConsoleBtn
+								key={console.name}
 								console={`${console.name}`}
 								color={`${console.color}`}
 							/>

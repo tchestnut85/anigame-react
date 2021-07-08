@@ -7,8 +7,10 @@ const { Provider } = SearchContext;
 
 const SearchProvider = ({ value = [], ...props }) => {
 	const [state, dispatch] = useSearchReducer({
-		gameData: null,
-		animeData: null,
+		query: '',
+		gameState: [],
+		gameScore: null,
+		animeState: [],
 		error: null,
 	});
 

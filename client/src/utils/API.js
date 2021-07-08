@@ -4,4 +4,9 @@ const getGameData = title => {
 	);
 };
 
-export { getGameData };
+const getGameScore = title => {
+	return fetch(
+		`${process.env.REACT_APP_CORS_PROXY}/http://www.gamespot.com/api/reviews/?api_key=${process.env.REACT_APP_GAMESPOT_KEY}&filter=title:${title}&format=json`
+	);
+};
+export { getGameData, getGameScore };

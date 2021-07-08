@@ -64,6 +64,15 @@ export const GameResults = () => {
 											Release date:{' '}
 											{formatDate(game.release_date)}
 										</p>
+										<p>
+											<a
+												href={game.site_detail_url}
+												rel='noreferrer'
+												target='_blank'
+											>
+												Read More at GameSpot
+											</a>
+										</p>
 									</div>
 									{/* <div
 										id='column-description'

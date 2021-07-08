@@ -12,8 +12,7 @@ const capitalizeWords = string => {
 };
 
 const formatDate = date => {
-	const convertedDate = date * 1000;
-	return dayjs(convertedDate).format('ddd, MMM DD');
+	return dayjs(date).format('MMM DD, YYYY');
 };
 
 export { capitalizeFirstLetter, capitalizeWords, formatDate };

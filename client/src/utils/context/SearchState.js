@@ -9,6 +9,7 @@ const SearchProvider = ({ value = [], ...props }) => {
 	const [state, dispatch] = useSearchReducer({
 		query: '',
 		gameState: [],
+		gameScore: null,
 		animeState: [],
 		error: null,
 	});

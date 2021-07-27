@@ -1,8 +1,10 @@
 import {
 	CLEAR_DATA,
+	SET_ANIME_DATA,
 	SET_ERROR,
 	SET_GAME_DATA,
-	SET_QUERY, SET_GAME_SCORE
+	SET_GAME_SCORE,
+	SET_QUERY,
 } from './searchActions';
 
 import { useReducer } from 'react';
@@ -19,11 +21,16 @@ const reducer = (state, action) => {
 				...state,
 				gameState: action.payload,
 			};
-			case SET_GAME_SCORE: 
+		case SET_GAME_SCORE:
 			return {
 				...state,
-				gameScore: action.payload
-			}
+				gameScore: action.payload,
+			};
+		case SET_ANIME_DATA:
+			return {
+				...state,
+				animeState: action.payload,
+			};
 		case CLEAR_DATA:
 			return {
 				...state,

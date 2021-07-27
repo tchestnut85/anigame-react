@@ -9,7 +9,6 @@ import { useSearchContext } from '../../utils/context/SearchState';
 export const GameResults = () => {
 	const [state, dispatch] = useSearchContext();
 	const games = state?.gameState;
-	console.log('Results state:', state);
 
 	return (
 		<>

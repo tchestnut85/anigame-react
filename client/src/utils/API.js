@@ -16,4 +16,8 @@ const getAnimeData = title => {
 	);
 };
 
-export { getGameData, getGameScore, getAnimeData };
+const getAnimeStreamUrl = animeId => {
+	return fetch(`https://kitsu.io/api/edge/anime/${animeId}/streaming-links`);
+};
+
+export { getGameData, getGameScore, getAnimeData, getAnimeStreamUrl };

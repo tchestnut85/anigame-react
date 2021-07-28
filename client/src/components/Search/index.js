@@ -1,6 +1,8 @@
 import {
 	CLEAR_DATA,
+	CLEAR_GAME_LOADING,
 	SET_GAME_DATA,
+	SET_GAME_LOADING,
 	SET_GAME_SCORE,
 	SET_QUERY,
 } from '../../utils/context/searchActions';
@@ -28,6 +30,8 @@ export const Search = () => {
 		dispatch({ type: CLEAR_DATA });
 
 		try {
+			dispatch({ type: SET_GAME_LOADING });
+
 			if (searchTerm === '') {
 				throw Error('You must enter something to search for.');
 			}
@@ -62,6 +66,8 @@ export const Search = () => {
 		} catch (err) {
 			console.error(`There was an error: ${err.message})`);
 		}
+
+		dispatch({ type: CLEAR_GAME_LOADING });
 	};
 
 	return (

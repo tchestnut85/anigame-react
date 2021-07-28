@@ -11,7 +11,10 @@ const SearchProvider = ({ value = [], ...props }) => {
 		gameState: [],
 		gameScore: null,
 		animeState: [],
+		animeStreamUrls: [],
 		error: null,
+		gameLoading: false,
+		animeLoading: false,
 	});
 
 	return <Provider value={[state, dispatch]} {...props} />;

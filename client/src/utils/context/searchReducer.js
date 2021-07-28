@@ -1,8 +1,15 @@
 import {
+	CLEAR_ANIME_LOADING,
 	CLEAR_DATA,
+	CLEAR_GAME_LOADING,
+	SET_ANIME_DATA,
+	SET_ANIME_LOADING,
 	SET_ERROR,
 	SET_GAME_DATA,
-	SET_QUERY, SET_GAME_SCORE
+	SET_GAME_LOADING,
+	SET_GAME_SCORE,
+	SET_QUERY,
+	SET_STREAM_URL,
 } from './searchActions';
 
 import { useReducer } from 'react';
@@ -19,16 +26,51 @@ const reducer = (state, action) => {
 				...state,
 				gameState: action.payload,
 			};
-			case SET_GAME_SCORE: 
+		case SET_GAME_SCORE:
 			return {
 				...state,
-				gameScore: action.payload
-			}
+				gameScore: action.payload,
+			};
+		case SET_ANIME_DATA:
+			return {
+				...state,
+				animeState: action.payload,
+			};
+		case SET_STREAM_URL:
+			return {
+				...state,
+				animeStreamUrls: [...state.animeStreamUrls, action.payload],
+			};
+		case SET_GAME_LOADING:
+			return {
+				...state,
+				gameLoading: true,
+			};
+		case CLEAR_GAME_LOADING:
+			return {
+				...state,
+				gameLoading: false,
+			};
+		case SET_ANIME_LOADING:
+			return {
+				...state,
+				animeLoading: true,
+			};
+		case CLEAR_ANIME_LOADING:
+			return {
+				...state,
+				animeLoading: false,
+			};
 		case CLEAR_DATA:
 			return {
 				...state,
+				query: '',
 				gameState: [],
+				gameScore: null,
 				animeState: [],
+				animeStreamUrls: [],
+				error: null,
+				loading: false,
 			};
 		case SET_ERROR:
 			let errorMsg = action.payload;

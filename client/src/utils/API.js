@@ -9,4 +9,15 @@ const getGameScore = title => {
 		`${process.env.REACT_APP_CORS_PROXY}/http://www.gamespot.com/api/reviews/?api_key=${process.env.REACT_APP_GAMESPOT_KEY}&filter=title:${title}&format=json`
 	);
 };
-export { getGameData, getGameScore };
+
+const getAnimeData = title => {
+	return fetch(
+		`https://kitsu.io/api/edge/anime?filter[text]=${title}&sort=-startDate`
+	);
+};
+
+const getAnimeStreamUrl = animeId => {
+	return fetch(`https://kitsu.io/api/edge/anime/${animeId}/streaming-links`);
+};
+
+export { getGameData, getGameScore, getAnimeData, getAnimeStreamUrl };

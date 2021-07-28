@@ -4,12 +4,9 @@ import React from 'react';
 import { ReviewStars } from '../ReviewStars';
 import { useSearchContext } from '../../utils/context/SearchState';
 
-// TODO - add function to toggle hiding game description on clicking game card
-
 export const GameResults = () => {
-	const [state, dispatch] = useSearchContext();
+	const [state] = useSearchContext();
 	const games = state?.gameState;
-	console.log('Results state:', state);
 
 	return (
 		<>

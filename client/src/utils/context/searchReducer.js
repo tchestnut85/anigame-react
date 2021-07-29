@@ -2,6 +2,7 @@ import {
 	CLEAR_ANIME_LOADING,
 	CLEAR_DATA,
 	CLEAR_GAME_LOADING,
+	CLEAR_STREAM_URL_DATA,
 	SET_ANIME_DATA,
 	SET_ANIME_LOADING,
 	SET_ERROR,
@@ -39,7 +40,13 @@ const reducer = (state, action) => {
 		case SET_STREAM_URL:
 			return {
 				...state,
-				animeStreamUrls: [...state.animeStreamUrls, action.payload],
+				animeStreamUrls: [
+					...state.animeStreamUrls,
+					{
+						id: action.payload.id,
+						url: action.payload.url,
+					},
+				],
 			};
 		case SET_GAME_LOADING:
 			return {
@@ -80,6 +87,11 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				error: errorMsg,
+			};
+		case CLEAR_STREAM_URL_DATA:
+			return {
+				...state,
+				animeStreamUrls: [],
 			};
 		default:
 			return state;

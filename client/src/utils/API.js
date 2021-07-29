@@ -11,9 +11,7 @@ const getGameScore = title => {
 };
 
 const getAnimeData = title => {
-	return fetch(
-		`https://kitsu.io/api/edge/anime?filter[text]=${title}&sort=-startDate`
-	);
+	return fetch(`https://kitsu.io/api/edge/anime?filter[text]=${title}`);
 };
 
 const getAnimeStreamUrl = animeId => {

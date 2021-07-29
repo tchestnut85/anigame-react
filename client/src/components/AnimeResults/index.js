@@ -13,8 +13,8 @@ import { useSearchContext } from '../../utils/context/SearchState';
 
 export const AnimeResults = () => {
 	const [state, dispatch] = useSearchContext();
-	// console.log('state:', state);
-	const { gameState, animeState, animeStreamUrls } = state;
+	const { query, animeLoading, gameState, animeState, animeStreamUrls } =
+		state;
 
 	const animeSearch = async () => {
 		dispatch({ type: CLEAR_STREAM_URL_DATA });
@@ -30,13 +30,19 @@ export const AnimeResults = () => {
 			}
 
 			const { data } = await animeResponse.json();
-			const animeData = data.slice(0, 6);
 
-			dispatch({ type: SET_ANIME_DATA, payload: animeData });
+			// filter through the data object and return only the anime titles that actually match the query searched for
+			const matchedAnime = data.filter(anime =>
+				anime.attributes.canonicalTitle
+					.toLowerCase()
+					.includes(query.toLowerCase())
+			);
+
+			dispatch({ type: SET_ANIME_DATA, payload: matchedAnime });
+			dispatch({ type: CLEAR_ANIME_LOADING });
 		} catch (err) {
 			console.error(err);
 		}
-		dispatch({ type: CLEAR_ANIME_LOADING });
 	};
 
 	const streamUrlSearch = async animeId => {
@@ -67,20 +73,16 @@ export const AnimeResults = () => {
 		if (gameState) {
 			animeSearch();
 		}
-
 		//eslint-disable-next-line
 	}, [gameState]);
 
-	// run the streamUrlSearch when the anime search is done, aka anime.length === 10
-	// TODO - figure out a better way to determine when the anime search is done in order to run the stream url search
+	// run the streamUrlSearch when the anime search is done (state.animeLoading === false)
 	useEffect(() => {
-		if (animeState.length === 6) {
-			animeState.forEach(anime => {
-				streamUrlSearch(anime.id);
-			});
-		}
+		animeState.forEach(anime => {
+			streamUrlSearch(anime.id);
+		});
 		//eslint-disable-next-line
-	}, [animeState]);
+	}, [animeLoading]);
 
 	// function to get the matching stream url for the anime by ID
 	const findStreamUrl = animeId => {

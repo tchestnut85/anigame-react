@@ -1,5 +1,6 @@
 import {
 	CLEAR_ANIME_LOADING,
+	CLEAR_STREAM_URL_DATA,
 	SET_ANIME_DATA,
 	SET_ANIME_LOADING,
 	SET_STREAM_URL,
@@ -12,9 +13,11 @@ import { useSearchContext } from '../../utils/context/SearchState';
 
 export const AnimeResults = () => {
 	const [state, dispatch] = useSearchContext();
-	const { gameState, animeState, animeStreamUrls } = state;
+	const { query, animeLoading, gameState, animeState, animeStreamUrls } =
+		state;
 
 	const animeSearch = async () => {
+		dispatch({ type: CLEAR_STREAM_URL_DATA });
 		try {
 			dispatch({ type: SET_ANIME_LOADING });
 
@@ -26,12 +29,20 @@ export const AnimeResults = () => {
 				);
 			}
 
-			const animeData = await animeResponse.json();
-			dispatch({ type: SET_ANIME_DATA, payload: animeData.data });
+			const { data } = await animeResponse.json();
+
+			// filter through the data object and return only the anime titles that actually match the query searched for
+			const matchedAnime = data.filter(anime =>
+				anime.attributes.canonicalTitle
+					.toLowerCase()
+					.includes(query.toLowerCase())
+			);
+
+			dispatch({ type: SET_ANIME_DATA, payload: matchedAnime });
+			dispatch({ type: CLEAR_ANIME_LOADING });
 		} catch (err) {
 			console.error(err);
 		}
-		dispatch({ type: CLEAR_ANIME_LOADING });
 	};
 
 	const streamUrlSearch = async animeId => {
@@ -45,10 +56,12 @@ export const AnimeResults = () => {
 			}
 
 			const streamUrl = await streamUrlResponse.json();
-			console.log(streamUrl.data[0].attributes.url);
 			dispatch({
 				type: SET_STREAM_URL,
-				payload: streamUrl.data[0].attributes.url,
+				payload: {
+					id: animeId,
+					url: streamUrl?.data[0]?.attributes?.url,
+				},
 			});
 		} catch (err) {
 			console.error(err);
@@ -63,16 +76,24 @@ export const AnimeResults = () => {
 		//eslint-disable-next-line
 	}, [gameState]);
 
-	// run the streamUrlSearch when the anime search is done, aka anime.length === 10
-	// TODO - figure out a better way to determine when the anime search is done in order to run the stream url search
+	// run the streamUrlSearch when the anime search is done (state.animeLoading === false)
 	useEffect(() => {
-		if (animeState.length === 10) {
-			animeState.forEach(anime => {
-				streamUrlSearch(anime.id);
-			});
-		}
+		animeState.forEach(anime => {
+			streamUrlSearch(anime.id);
+		});
 		//eslint-disable-next-line
-	}, [animeState]);
+	}, [animeLoading]);
+
+	// function to get the matching stream url for the anime by ID
+	const findStreamUrl = animeId => {
+		const foundUrl = animeStreamUrls.find(url => url.id === animeId);
+		return foundUrl?.url;
+	};
+
+	// flag to determine if there is a stream url for the anime
+	const hasStreamUrl = animeId => {
+		return findStreamUrl(animeId) ? true : false;
+	};
 
 	return (
 		<>
@@ -142,15 +163,15 @@ export const AnimeResults = () => {
 												aria-hidden='true'
 											></i>
 										</span>
-										{animeStreamUrls[index] ? (
+										{hasStreamUrl(anime.id) ? (
 											<div
 												id={`anime-stream-${anime.id}`}
 												className='anime-stream column is-size-5 anime-stream-style'
 											>
 												<a
-													href={
-														animeStreamUrls[index]
-													}
+													href={findStreamUrl(
+														anime.id
+													)}
 													target='_blank'
 													rel='noreferrer'
 												>
@@ -173,7 +194,9 @@ export const AnimeResults = () => {
 										id='anime-description'
 										className='container has-text-left is-size-6'
 									>
-										{/* {anime.attributes.description} */}
+										{/* Todo - make a seperate description component using react-router for this... or maybe a modal 
+											{anime.attributes.description} 
+										*/}
 									</p>
 								</div>
 							);

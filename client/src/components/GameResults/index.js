@@ -2,18 +2,19 @@ import { capitalizeWords, formatDate } from '../../utils/helpers';
 
 import React from 'react';
 import { ReviewStars } from '../ReviewStars';
+import { reviewTypes } from '../../utils/renderScore';
 import { useSearchContext } from '../../utils/context/SearchState';
 
 export const GameResults = () => {
 	const [state] = useSearchContext();
-	const games = state?.gameState;
+	const { gameState: games, query, gameScore } = state;
 
 	return (
 		<>
 			{games.length ? (
 				<div id='game-container'>
 					<p id='game-results'>
-						Games found for {capitalizeWords(state.query)}:
+						Games found for {capitalizeWords(query)}:
 					</p>
 					<div
 						id='game-columns-container'
@@ -23,7 +24,7 @@ export const GameResults = () => {
 							<div
 								key={game.id}
 								id='game-column'
-								data-name={state.query}
+								data-name={query}
 								className='column search-results is-two-fifths mx-3 my-4'
 							>
 								<div
@@ -36,9 +37,9 @@ export const GameResults = () => {
 									>
 										<img
 											id='game-image'
-											src={game?.image?.original}
+											src={game.image.original}
 											className='image'
-											alt={`Cover Art for ${game?.name}`}
+											alt={`Cover Art for ${game.name}`}
 										/>
 									</div>
 									<div
@@ -46,9 +47,19 @@ export const GameResults = () => {
 										className='column has-text-centered'
 									>
 										<h1 className='title'>{game.name}</h1>
-										<ReviewStars
-											rawScore={state.gameScore}
-										/>
+										<div
+											id='game-stars'
+											className='container has-text-centered'
+										>
+											<h3 className='title has-text-centered is-size-3'>
+												<ReviewStars
+													reviewType={
+														reviewTypes.game
+													}
+													rawScore={gameScore}
+												/>
+											</h3>
+										</div>
 									</div>
 								</div>
 								<div

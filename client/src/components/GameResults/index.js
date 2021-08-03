@@ -46,7 +46,9 @@ export const GameResults = () => {
 										className='column has-text-centered'
 									>
 										<h1 className='title'>{game.name}</h1>
-										<ReviewStars number={state.gameScore} />
+										<ReviewStars
+											rawScore={state.gameScore}
+										/>
 									</div>
 								</div>
 								<div

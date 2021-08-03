@@ -60,7 +60,7 @@ export const Search = () => {
 			dispatch({ type: SET_GAME_DATA, payload: gameData.results });
 			dispatch({
 				type: SET_GAME_SCORE,
-				payload: parseInt(scoreData.results[0].score),
+				payload: parseInt(scoreData?.results[0]?.score),
 			});
 			setSearchTerm('');
 		} catch (err) {

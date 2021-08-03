@@ -1,22 +1,25 @@
+import { renderScore, starCountArr } from '../../utils/renderScore';
+
 import React from 'react';
 
-export const ReviewStars = ({ number }) => {
-	const starCount = Math.floor(number / 2);
-	const scoreArray = [1, 2, 3, 4, 5];
+export const ReviewStars = ({ reviewType, rawScore }) => {
+	const score = renderScore(reviewType, rawScore);
 
 	return (
-		<div id='game-stars' className='container has-text-centered'>
-			<h3 className='title has-text-centered is-size-3'>
-				{scoreArray.map(score => (
-					<i
-						key={score}
-						className={
-							score <= starCount ? 'fas fa-star' : 'far fa-star'
-						}
-						aria-hidden='true'
-					></i>
-				))}
-			</h3>
-		</div>
+		<>
+			{score
+				? starCountArr.map((star, i) => (
+						<i
+							key={i}
+							className={
+								star <= score ? 'fas fa-star' : 'far fa-star'
+							}
+							aria-hidden='true'
+						></i>
+				  ))
+				: starCountArr.map((star, i) => (
+						<i key={i} className='far fa-question-circle'></i>
+				  ))}
+		</>
 	);
 };

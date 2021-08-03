@@ -8,7 +8,9 @@ import {
 import React, { useEffect } from 'react';
 import { getAnimeData, getAnimeStreamUrl } from '../../utils/API';
 
+import { ReviewStars } from '../ReviewStars';
 import { capitalizeWords } from '../../utils/helpers';
+import { reviewTypes } from '../../utils/renderScore';
 import { useSearchContext } from '../../utils/context/SearchState';
 
 export const AnimeResults = () => {
@@ -16,12 +18,14 @@ export const AnimeResults = () => {
 	const { query, animeLoading, gameState, animeState, animeStreamUrls } =
 		state;
 
+	// search for the anime based on the query, fetching from the Kitsu API
 	const animeSearch = async () => {
 		dispatch({ type: CLEAR_STREAM_URL_DATA });
+
 		try {
 			dispatch({ type: SET_ANIME_LOADING });
 
-			const animeResponse = await getAnimeData(state.query);
+			const animeResponse = await getAnimeData(query);
 
 			if (!animeResponse.ok) {
 				throw Error(
@@ -45,6 +49,7 @@ export const AnimeResults = () => {
 		}
 	};
 
+	// search for each anime's streaming service URL using its ID
 	const streamUrlSearch = async animeId => {
 		try {
 			const streamUrlResponse = await getAnimeStreamUrl(animeId);
@@ -56,6 +61,7 @@ export const AnimeResults = () => {
 			}
 
 			const streamUrl = await streamUrlResponse.json();
+
 			dispatch({
 				type: SET_STREAM_URL,
 				payload: {
@@ -68,7 +74,7 @@ export const AnimeResults = () => {
 		}
 	};
 
-	// run the animeSearch function if gameState is populated/exists after initial game search
+	// run the animeSearch function when gameState is populated/exists after initial game search
 	useEffect(() => {
 		if (gameState) {
 			animeSearch();
@@ -76,7 +82,7 @@ export const AnimeResults = () => {
 		//eslint-disable-next-line
 	}, [gameState]);
 
-	// run the streamUrlSearch when the anime search is done (state.animeLoading === false)
+	// run the streamUrlSearch when the anime search is done and animeLoading changes (state.animeLoading === false)
 	useEffect(() => {
 		animeState.forEach(anime => {
 			streamUrlSearch(anime.id);
@@ -100,33 +106,33 @@ export const AnimeResults = () => {
 			{animeState.length && (
 				<div id='anime-container'>
 					<p id='anime-results'>
-						Anime found for {capitalizeWords(state.query)}:
+						Anime found for {capitalizeWords(query)}:
 					</p>
 					<div
 						id='results-container'
 						className='columns is-multiline is-centered is-vcentered is-2 mt-4'
 					>
-						{animeState.map((anime, index) => {
+						{animeState.map(anime => {
 							return (
 								<div
 									key={`anime-result-${anime.id}`}
-									id='anime-container'
+									id={`${anime.attributes.canonicalTitle}-container`}
 									className='column anime-class anime-content search-results-anime is-two-fifths has-text-centered mx-3 my-4'
 								>
 									<div
 										className='container has-text-centered is-size-5'
-										id='anime-info'
+										id={`${anime.attributes.canonicalTitle}-info`}
 									>
 										<h3
 											className='title has-text-centered is-size-3'
-											id='anime-title'
+											id={`${anime.attributes.canonicalTitle}-title`}
 										>
 											{anime.attributes.canonicalTitle}
 										</h3>
 									</div>
 									<div
 										className='container is-centered'
-										id='anime-vid-container'
+										id={`${anime.attributes.canonicalTitle}-vid-container`}
 									>
 										<iframe
 											src={`https://www.youtube.com/embed/${anime.attributes.youtubeVideoId}?controls=1?controls=1`}
@@ -134,35 +140,23 @@ export const AnimeResults = () => {
 											allowFullScreen
 											alt={`Trailer for ${anime.attributes.canonicalTitle}`}
 											title={`Trailer for ${anime.attributes.canonicalTitle}`}
-											id='anime-video'
+											id={`${anime.attributes.canonicalTitle}-video`}
 										></iframe>
 									</div>
 									<div className='anime-rating-stream-div columns is-vcentered container has-text-centered'>
 										<span
-											id='anime-rating'
+											id={`${anime.attributes.canonicalTitle}-rating`}
 											className='column container has-text-right is-size-4'
 										>
-											<i
-												className='fa-star fas'
-												aria-hidden='true'
-											></i>
-											<i
-												className='fa-star fas'
-												aria-hidden='true'
-											></i>
-											<i
-												className='fa-star fas'
-												aria-hidden='true'
-											></i>
-											<i
-												className='far fa-star'
-												aria-hidden='true'
-											></i>
-											<i
-												className='far fa-star'
-												aria-hidden='true'
-											></i>
+											<ReviewStars
+												reviewType={reviewTypes.anime}
+												rawScore={
+													anime.attributes
+														.averageRating
+												}
+											/>
 										</span>
+
 										{hasStreamUrl(anime.id) ? (
 											<div
 												id={`anime-stream-${anime.id}`}
@@ -194,7 +188,7 @@ export const AnimeResults = () => {
 										id='anime-description'
 										className='container has-text-left is-size-6'
 									>
-										{/* Todo - make a seperate description component using react-router for this... or maybe a modal 
+										{/* TODO - make a seperate description component using react-router for this... or maybe a modal 
 											{anime.attributes.description} 
 										*/}
 									</p>

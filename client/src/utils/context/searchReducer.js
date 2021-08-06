@@ -1,6 +1,7 @@
 import {
 	CLEAR_ANIME_LOADING,
 	CLEAR_DATA,
+	CLEAR_ERROR,
 	CLEAR_GAME_LOADING,
 	CLEAR_STREAM_URL_DATA,
 	SET_ANIME_DATA,
@@ -80,13 +81,16 @@ const reducer = (state, action) => {
 				loading: false,
 			};
 		case SET_ERROR:
-			let errorMsg = action.payload;
-			setTimeout(() => {
-				errorMsg = null;
-			}, 3000);
+			let error = action.payload;
+
 			return {
 				...state,
-				error: errorMsg,
+				error,
+			};
+		case CLEAR_ERROR:
+			return {
+				...state,
+				error: null,
 			};
 		case CLEAR_STREAM_URL_DATA:
 			return {

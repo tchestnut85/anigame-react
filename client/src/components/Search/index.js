@@ -1,25 +1,32 @@
 import {
 	CLEAR_DATA,
+	CLEAR_ERROR,
 	CLEAR_GAME_LOADING,
+	SET_ERROR,
 	SET_GAME_DATA,
 	SET_GAME_LOADING,
 	SET_GAME_SCORE,
 	SET_QUERY,
 } from '../../utils/context/searchActions';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getGameData, getGameScore } from '../../utils/API';
 
+import { AlertModal } from '../AlertModal';
+import { modalProps } from '../../constants/modalValues';
 import { useSearchContext } from '../../utils/context/SearchState';
 
 // TODO: localstorage to save searched titles - setup last
 // TODO: on error, set an error component to display with error message
 
 export const Search = () => {
+	const { empty } = modalProps;
+
 	// search bar form state
 	const [searchTerm, setSearchTerm] = useState('');
 
 	// search context
 	const [state, dispatch] = useSearchContext();
+	const { error } = state;
 
 	const handleChange = e => setSearchTerm(e.target.value);
 
@@ -33,6 +40,10 @@ export const Search = () => {
 			dispatch({ type: SET_GAME_LOADING });
 
 			if (searchTerm === '') {
+				dispatch({ type: SET_ERROR, payload: empty });
+				setTimeout(() => {
+					dispatch({ type: CLEAR_ERROR });
+				}, 3000);
 				throw Error('You must enter something to search for.');
 			}
 
@@ -64,11 +75,20 @@ export const Search = () => {
 			});
 			setSearchTerm('');
 		} catch (err) {
-			console.error(`There was an error: ${err.message})`);
+			console.error(`There was an error: ${err.message}`);
 		}
 
 		dispatch({ type: CLEAR_GAME_LOADING });
 	};
+
+	// Display the alert modal if there's an empty search
+	// const displayModal = ({ message, icon, subMessage }) => (
+	// 	<AlertModal type={message} icon={icon} subMessage={subMessage} />
+	// );
+
+	// useEffect(() => {
+	// 	// displayModal(error);
+	// }, [error]);
 
 	return (
 		<form
@@ -94,6 +114,13 @@ export const Search = () => {
 			>
 				Search
 			</button>
+			{error && (
+				<AlertModal
+					type={error?.message}
+					icon={error?.icon}
+					subMessage={error?.subMessage}
+				/>
+			)}
 		</form>
 	);
 };

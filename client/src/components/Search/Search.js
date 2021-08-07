@@ -8,25 +8,21 @@ import {
 	SET_GAME_SCORE,
 	SET_QUERY,
 } from '../../utils/context/searchActions';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { getGameData, getGameScore } from '../../utils/API';
 
-import { AlertModal } from '../AlertModal';
 import { modalProps } from '../../constants/modalValues';
 import { useSearchContext } from '../../utils/context/SearchState';
 
 // TODO: localstorage to save searched titles - setup last
-// TODO: on error, set an error component to display with error message
 
 export const Search = () => {
-	const { empty } = modalProps;
-
 	// search bar form state
 	const [searchTerm, setSearchTerm] = useState('');
 
 	// search context
-	const [state, dispatch] = useSearchContext();
-	const { error } = state;
+	const [, dispatch] = useSearchContext();
+	const { empty } = modalProps;
 
 	const handleChange = e => setSearchTerm(e.target.value);
 
@@ -81,15 +77,6 @@ export const Search = () => {
 		dispatch({ type: CLEAR_GAME_LOADING });
 	};
 
-	// Display the alert modal if there's an empty search
-	// const displayModal = ({ message, icon, subMessage }) => (
-	// 	<AlertModal type={message} icon={icon} subMessage={subMessage} />
-	// );
-
-	// useEffect(() => {
-	// 	// displayModal(error);
-	// }, [error]);
-
 	return (
 		<form
 			id='search-form'
@@ -114,13 +101,6 @@ export const Search = () => {
 			>
 				Search
 			</button>
-			{error && (
-				<AlertModal
-					type={error?.message}
-					icon={error?.icon}
-					subMessage={error?.subMessage}
-				/>
-			)}
 		</form>
 	);
 };

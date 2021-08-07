@@ -1,26 +1,28 @@
 import React from 'react';
 
-// TODO - enable modals to show on search errors
-
-// Anime alert props => anime-alert, fas fa-sad-cry fa-5x, No Anime Found...
-// Empty search alert => empty-search, far fa-frown-open fa-5x, You didn't search for anything..., Try typing a video game title in the search bar.
-
-export const AlertModal = ({ type, icon, message1, message2 = '' }) => {
+export const AlertModal = ({
+	type,
+	icon,
+	message,
+	subMessage = '',
+	closeModal,
+}) => {
 	return (
 		<div
 			id={type}
-			className='modal is-clipped has-text-centered has-background-grey-lighter'
+			className='modal is-active is-clipped has-text-centered has-background-grey-lighter'
 		>
 			<div id={`${type}-bg`} className='modal-background'></div>
 			<div className='modal-card'>
 				<header className='modal-card-head has-background-grey-lighter'>
 					<p className='modal-card-title has-text-black-bis'>
-						{message1}
+						{message}
 					</p>
 					<button
 						id={`${type}-btn`}
 						className='delete'
-						ariaLabel='close'
+						aria-label='close'
+						onClick={closeModal}
 					></button>
 				</header>
 				<i
@@ -30,7 +32,7 @@ export const AlertModal = ({ type, icon, message1, message2 = '' }) => {
 					id={`${type}-text`}
 					className='modal-card-body has-text-black-bis has-background-grey-lighter'
 				>
-					<p>{message2}</p>
+					<p>{subMessage}</p>
 				</section>
 				<footer className='modal-card-foot has-background-grey-lighter'></footer>
 			</div>

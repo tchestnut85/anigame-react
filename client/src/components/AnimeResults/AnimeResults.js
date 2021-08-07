@@ -10,7 +10,7 @@ import {
 import React, { useEffect } from 'react';
 import { getAnimeData, getAnimeStreamUrl } from '../../utils/API';
 
-import { ReviewStars } from '../ReviewStars';
+import { ReviewStars } from '../ReviewStars/ReviewStars';
 import { capitalizeWords } from '../../utils/helpers';
 import { modalProps } from '../../constants/modalValues';
 import { reviewTypes } from '../../utils/renderScore';

@@ -1,10 +1,10 @@
 import { AlertModal } from '../components/AlertModal/AlertModal';
 import { AnimeResults } from '../components/AnimeResults/AnimeResults';
 import { CLEAR_ERROR } from '../utils/context/searchActions';
-import { ConsoleButtons } from '../components/ConsoleButtons';
-import { Footer } from '../components/Footer';
-import { GameResults } from '../components/GameResults';
-import { Hero } from '../components/Hero';
+import { ConsoleButtons } from '../components/ConsoleButtons/ConsoleButtons';
+import { Footer } from '../components/Footer/Footer';
+import { GameResults } from '../components/GameResults/GameResults';
+import { Hero } from '../components/Hero/Hero';
 import React from 'react';
 import { useSearchContext } from '../utils/context/SearchState';
 

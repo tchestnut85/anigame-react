@@ -1,8 +1,10 @@
 import {
 	CLEAR_ANIME_LOADING,
+	CLEAR_ERROR,
 	CLEAR_STREAM_URL_DATA,
 	SET_ANIME_DATA,
 	SET_ANIME_LOADING,
+	SET_ERROR,
 	SET_STREAM_URL,
 } from '../../utils/context/searchActions';
 import React, { useEffect } from 'react';
@@ -10,6 +12,7 @@ import { getAnimeData, getAnimeStreamUrl } from '../../utils/API';
 
 import { ReviewStars } from '../ReviewStars';
 import { capitalizeWords } from '../../utils/helpers';
+import { modalProps } from '../../constants/modalValues';
 import { reviewTypes } from '../../utils/renderScore';
 import { useSearchContext } from '../../utils/context/SearchState';
 
@@ -17,6 +20,17 @@ export const AnimeResults = () => {
 	const [state, dispatch] = useSearchContext();
 	const { query, animeLoading, gameState, animeState, animeStreamUrls } =
 		state;
+
+	const { anime: animeError } = modalProps;
+	const displayError = () => {
+		dispatch({
+			type: SET_ERROR,
+			payload: animeError,
+		});
+		setTimeout(() => {
+			dispatch({ type: CLEAR_ERROR });
+		}, 3000);
+	};
 
 	// search for the anime based on the query, fetching from the Kitsu API
 	const animeSearch = async () => {
@@ -26,8 +40,8 @@ export const AnimeResults = () => {
 			dispatch({ type: SET_ANIME_LOADING });
 
 			const animeResponse = await getAnimeData(query);
-
 			if (!animeResponse.ok) {
+				displayError();
 				throw Error(
 					`There was an error: ${animeResponse.statusText} (${animeResponse.status})`
 				);
@@ -41,6 +55,11 @@ export const AnimeResults = () => {
 					.toLowerCase()
 					.includes(query.toLowerCase())
 			);
+
+			const isError = matchedAnime.length > 0 ? false : true;
+			if (isError) {
+				displayError();
+			}
 
 			dispatch({ type: SET_ANIME_DATA, payload: matchedAnime });
 			dispatch({ type: CLEAR_ANIME_LOADING });
@@ -76,7 +95,7 @@ export const AnimeResults = () => {
 
 	// run the animeSearch function when gameState is populated/exists after initial game search
 	useEffect(() => {
-		if (gameState) {
+		if (gameState.length) {
 			animeSearch();
 		}
 		//eslint-disable-next-line

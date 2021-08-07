@@ -1,5 +1,5 @@
 import { AlertModal } from '../components/AlertModal/AlertModal';
-import { AnimeResults } from '../components/AnimeResults';
+import { AnimeResults } from '../components/AnimeResults/AnimeResults';
 import { CLEAR_ERROR } from '../utils/context/searchActions';
 import { ConsoleButtons } from '../components/ConsoleButtons';
 import { Footer } from '../components/Footer';

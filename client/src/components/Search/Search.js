@@ -22,7 +22,7 @@ export const Search = () => {
 
 	// search context
 	const [, dispatch] = useSearchContext();
-	const { empty } = modalProps;
+	const { empty: emptyError } = modalProps;
 
 	const handleChange = e => setSearchTerm(e.target.value);
 
@@ -36,7 +36,7 @@ export const Search = () => {
 			dispatch({ type: SET_GAME_LOADING });
 
 			if (searchTerm === '') {
-				dispatch({ type: SET_ERROR, payload: empty });
+				dispatch({ type: SET_ERROR, payload: emptyError });
 				setTimeout(() => {
 					dispatch({ type: CLEAR_ERROR });
 				}, 3000);

@@ -1,13 +1,13 @@
 import { capitalizeWords, formatDate } from '../../utils/helpers';
 
 import React from 'react';
-import { ReviewStars } from '../ReviewStars';
+import { ReviewStars } from '../ReviewStars/ReviewStars';
 import { reviewTypes } from '../../utils/renderScore';
 import { useSearchContext } from '../../utils/context/SearchState';
 
 export const GameResults = () => {
 	const [state] = useSearchContext();
-	const { gameState: games, query, gameScore } = state;
+	const { gameState: games, query, gameScore, gameLoading } = state;
 
 	return (
 		<>

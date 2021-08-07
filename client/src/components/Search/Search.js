@@ -1,6 +1,8 @@
 import {
 	CLEAR_DATA,
+	CLEAR_ERROR,
 	CLEAR_GAME_LOADING,
+	SET_ERROR,
 	SET_GAME_DATA,
 	SET_GAME_LOADING,
 	SET_GAME_SCORE,
@@ -9,17 +11,18 @@ import {
 import React, { useState } from 'react';
 import { getGameData, getGameScore } from '../../utils/API';
 
+import { modalProps } from '../../constants/modalValues';
 import { useSearchContext } from '../../utils/context/SearchState';
 
 // TODO: localstorage to save searched titles - setup last
-// TODO: on error, set an error component to display with error message
 
 export const Search = () => {
 	// search bar form state
 	const [searchTerm, setSearchTerm] = useState('');
 
 	// search context
-	const [state, dispatch] = useSearchContext();
+	const [, dispatch] = useSearchContext();
+	const { empty: emptyError } = modalProps;
 
 	const handleChange = e => setSearchTerm(e.target.value);
 
@@ -33,6 +36,10 @@ export const Search = () => {
 			dispatch({ type: SET_GAME_LOADING });
 
 			if (searchTerm === '') {
+				dispatch({ type: SET_ERROR, payload: emptyError });
+				setTimeout(() => {
+					dispatch({ type: CLEAR_ERROR });
+				}, 3000);
 				throw Error('You must enter something to search for.');
 			}
 
@@ -64,7 +71,7 @@ export const Search = () => {
 			});
 			setSearchTerm('');
 		} catch (err) {
-			console.error(`There was an error: ${err.message})`);
+			console.error(`There was an error: ${err.message}`);
 		}
 
 		dispatch({ type: CLEAR_GAME_LOADING });

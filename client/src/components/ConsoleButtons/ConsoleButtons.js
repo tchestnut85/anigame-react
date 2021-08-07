@@ -1,14 +1,8 @@
 import { ConsoleBtn } from './ConsoleBtn';
 import React from 'react';
+import { consoles } from '../../constants/consoleList';
 
 // TODO - setup the theme color context to change the background and font colors based on the console button clicked
-
-const consoles = [
-	{ name: 'playstation', color: 'link' },
-	{ name: 'xbox', color: 'success' },
-	{ name: 'nintendo-switch', color: 'danger' },
-	{ name: 'steam', color: 'light' },
-];
 
 export const ConsoleButtons = () => {
 	return (

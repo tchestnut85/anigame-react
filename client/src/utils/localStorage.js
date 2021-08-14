@@ -1,24 +1,23 @@
 const LS_KEY = 'anigame_searches';
 
-const setItem = (array = []) => {
+const setItem = array => {
 	localStorage.setItem(LS_KEY, JSON.stringify(array));
 };
 
-const getSavedSearches = async () => {
-	const savedSearches =
-		(await JSON.parse(localStorage.getItem(LS_KEY))) || [];
+const getSavedSearches = () => {
+	const savedSearches = JSON.parse(localStorage.getItem(LS_KEY)) || [];
 	return savedSearches;
 };
 
-const saveSearch = async (storageState, searchTerm) => {
-	const savedSearches = await getSavedSearches();
+const saveSearch = (storageState, searchTerm) => {
+	const savedSearches = getSavedSearches();
 
 	savedSearches.length
 		? setItem([searchTerm, ...storageState])
 		: setItem([searchTerm]);
 };
 
-const clearSearches = async () => {
+const clearSearches = () => {
 	localStorage.removeItem(LS_KEY);
 };
 

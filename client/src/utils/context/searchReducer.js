@@ -3,7 +3,9 @@ import {
 	CLEAR_DATA,
 	CLEAR_ERROR,
 	CLEAR_GAME_LOADING,
+	CLEAR_STORAGE,
 	CLEAR_STREAM_URL_DATA,
+	LOAD_STORAGE,
 	SET_ANIME_DATA,
 	SET_ANIME_LOADING,
 	SET_ERROR,
@@ -11,32 +13,33 @@ import {
 	SET_GAME_LOADING,
 	SET_GAME_SCORE,
 	SET_QUERY,
+	SET_STORAGE,
 	SET_STREAM_URL,
 } from './searchActions';
 
 import { useReducer } from 'react';
 
-const reducer = (state, action) => {
-	switch (action.type) {
+const reducer = (state, { type, payload }) => {
+	switch (type) {
 		case SET_QUERY:
 			return {
 				...state,
-				query: action.payload,
+				query: payload,
 			};
 		case SET_GAME_DATA:
 			return {
 				...state,
-				gameState: action.payload,
+				gameState: payload,
 			};
 		case SET_GAME_SCORE:
 			return {
 				...state,
-				gameScore: action.payload,
+				gameScore: payload,
 			};
 		case SET_ANIME_DATA:
 			return {
 				...state,
-				animeState: action.payload,
+				animeState: payload,
 			};
 		case SET_STREAM_URL:
 			return {
@@ -44,8 +47,8 @@ const reducer = (state, action) => {
 				animeStreamUrls: [
 					...state.animeStreamUrls,
 					{
-						id: action.payload.id,
-						url: action.payload.url,
+						id: payload.id,
+						url: payload.url,
 					},
 				],
 			};
@@ -81,7 +84,7 @@ const reducer = (state, action) => {
 				loading: false,
 			};
 		case SET_ERROR:
-			let error = action.payload;
+			let error = payload;
 
 			return {
 				...state,
@@ -96,6 +99,21 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				animeStreamUrls: [],
+			};
+		case SET_STORAGE:
+			return {
+				...state,
+				savedSearches: [payload, ...state.savedSearches],
+			};
+		case LOAD_STORAGE:
+			return {
+				...state,
+				savedSearches: [...payload],
+			};
+		case CLEAR_STORAGE:
+			return {
+				...state,
+				savedSearches: [],
 			};
 		default:
 			return state;

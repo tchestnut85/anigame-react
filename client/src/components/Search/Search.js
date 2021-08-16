@@ -2,33 +2,42 @@ import {
 	CLEAR_DATA,
 	CLEAR_ERROR,
 	CLEAR_GAME_LOADING,
+	LOAD_STORAGE,
 	SET_ERROR,
 	SET_GAME_DATA,
 	SET_GAME_LOADING,
 	SET_GAME_SCORE,
 	SET_QUERY,
+	SET_STORAGE,
 } from '../../utils/context/searchActions';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getGameData, getGameScore } from '../../utils/API';
+import { getSavedSearches, saveSearch } from '../../utils/localStorage';
 
 import { modalProps } from '../../constants/modalValues';
 import { useSearchContext } from '../../utils/context/SearchState';
-
-// TODO: localstorage to save searched titles - setup last
 
 export const Search = () => {
 	// search bar form state
 	const [searchTerm, setSearchTerm] = useState('');
 
 	// search context
-	const [, dispatch] = useSearchContext();
+	const [{ savedSearches }, dispatch] = useSearchContext();
 	const { empty: emptyError } = modalProps;
+
+	// Load saved searches if any in localstorage, if not set an empty array to savedSearches state
+	useEffect(() => {
+		const searches = getSavedSearches();
+		dispatch({ type: LOAD_STORAGE, payload: searches });
+		//eslint-disable-next-line
+	}, []);
 
 	const handleChange = e => setSearchTerm(e.target.value);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
 		const gameTitle = searchTerm.trim().toLowerCase();
+
 		// clear the context state on a new search
 		dispatch({ type: CLEAR_DATA });
 
@@ -47,6 +56,9 @@ export const Search = () => {
 			const response = await getGameData(gameTitle);
 			const scoreResponse = await getGameScore(gameTitle);
 
+			dispatch({ type: SET_STORAGE, payload: gameTitle });
+			saveSearch(savedSearches, gameTitle);
+
 			if (!response.ok) {
 				throw Error(
 					`There was an error: ${response.statusText} (${response.status})`
@@ -63,7 +75,7 @@ export const Search = () => {
 			const scoreData = await scoreResponse.json();
 
 			// set the context gameResults to the response's data
-			dispatch({ type: SET_QUERY, payload: searchTerm });
+			dispatch({ type: SET_QUERY, payload: gameTitle });
 			dispatch({ type: SET_GAME_DATA, payload: gameData.results });
 			dispatch({
 				type: SET_GAME_SCORE,

@@ -1,5 +1,6 @@
 {
 	"name": "anigame-react",
+	"homepage": "http://tchestnut85.github.io/anigame-react",
 	"version": "0.1.0",
 	"description": "AniGame - search for an anime title to find related video games",
 	"private": true,

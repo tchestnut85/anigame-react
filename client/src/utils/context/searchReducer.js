@@ -101,9 +101,12 @@ const reducer = (state, { type, payload }) => {
 				animeStreamUrls: [],
 			};
 		case SET_STORAGE:
+			const { savedSearches } = state;
 			return {
 				...state,
-				savedSearches: [payload, ...state.savedSearches],
+				savedSearches: savedSearches.includes(payload)
+					? [...state.savedSearches]
+					: [payload, ...state.savedSearches],
 			};
 		case LOAD_STORAGE:
 			return {

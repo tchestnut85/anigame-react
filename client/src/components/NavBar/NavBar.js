@@ -1,4 +1,5 @@
 import {
+	CLEAR_DATA,
 	CLEAR_ERROR,
 	CLEAR_GAME_LOADING,
 	CLEAR_STORAGE,
@@ -32,6 +33,7 @@ export const NavBar = () => {
 		const searchTerm = e.target.textContent.trim().toLowerCase();
 
 		if (searchTerm === query) return;
+		dispatch({ type: CLEAR_DATA });
 
 		try {
 			dispatch({ type: SET_GAME_LOADING });
@@ -98,7 +100,7 @@ export const NavBar = () => {
 								classes={
 									'button game-button is-rounded is-light'
 								}
-								onClick={handleSearch}
+								handleSearch={handleSearch}
 								item={item}
 							/>
 					  ))

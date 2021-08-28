@@ -12,6 +12,10 @@ const getSavedSearches = () => {
 const saveSearch = (storageState, searchTerm) => {
 	const savedSearches = getSavedSearches();
 
+	if (savedSearches.includes(searchTerm)) {
+		return;
+	}
+
 	savedSearches.length
 		? setItem([searchTerm, ...storageState])
 		: setItem([searchTerm]);

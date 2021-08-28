@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/anigame-react/static/css/main.80a58402.chunk.css",
-    "main.js": "/anigame-react/static/js/main.2da36868.chunk.js",
-    "main.js.map": "/anigame-react/static/js/main.2da36868.chunk.js.map",
+    "main.css": "/anigame-react/static/css/main.c27771f4.chunk.css",
+    "main.js": "/anigame-react/static/js/main.31f03a96.chunk.js",
+    "main.js.map": "/anigame-react/static/js/main.31f03a96.chunk.js.map",
     "runtime-main.js": "/anigame-react/static/js/runtime-main.c1869c92.js",
     "runtime-main.js.map": "/anigame-react/static/js/runtime-main.c1869c92.js.map",
-    "static/js/2.44582369.chunk.js": "/anigame-react/static/js/2.44582369.chunk.js",
-    "static/js/2.44582369.chunk.js.map": "/anigame-react/static/js/2.44582369.chunk.js.map",
+    "static/js/2.dc6bd395.chunk.js": "/anigame-react/static/js/2.dc6bd395.chunk.js",
+    "static/js/2.dc6bd395.chunk.js.map": "/anigame-react/static/js/2.dc6bd395.chunk.js.map",
     "index.html": "/anigame-react/index.html",
-    "static/css/main.80a58402.chunk.css.map": "/anigame-react/static/css/main.80a58402.chunk.css.map",
-    "static/js/2.44582369.chunk.js.LICENSE.txt": "/anigame-react/static/js/2.44582369.chunk.js.LICENSE.txt",
+    "static/css/main.c27771f4.chunk.css.map": "/anigame-react/static/css/main.c27771f4.chunk.css.map",
+    "static/js/2.dc6bd395.chunk.js.LICENSE.txt": "/anigame-react/static/js/2.dc6bd395.chunk.js.LICENSE.txt",
     "static/media/made-with-bulma.672f96d0.png": "/anigame-react/static/media/made-with-bulma.672f96d0.png"
   },
   "entrypoints": [
     "static/js/runtime-main.c1869c92.js",
-    "static/js/2.44582369.chunk.js",
-    "static/css/main.80a58402.chunk.css",
-    "static/js/main.2da36868.chunk.js"
+    "static/js/2.dc6bd395.chunk.js",
+    "static/css/main.c27771f4.chunk.css",
+    "static/js/main.31f03a96.chunk.js"
   ]
 }

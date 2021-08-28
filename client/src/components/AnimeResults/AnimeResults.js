@@ -122,7 +122,7 @@ export const AnimeResults = () => {
 
 	return (
 		<>
-			{animeState.length && (
+			{animeState.length ? (
 				<div id='anime-container'>
 					<p id='anime-results'>
 						Anime found for {capitalizeWords(query)}:
@@ -216,7 +216,7 @@ export const AnimeResults = () => {
 						})}
 					</div>
 				</div>
-			)}
+			) : null}
 		</>
 	);
 };

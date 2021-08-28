@@ -7,7 +7,7 @@ import { useSearchContext } from '../../utils/context/SearchState';
 
 export const GameResults = () => {
 	const [state] = useSearchContext();
-	const { gameState: games, query, gameScore, gameLoading } = state;
+	const { gameState: games, query, gameScore } = state;
 
 	return (
 		<>

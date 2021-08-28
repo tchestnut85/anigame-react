@@ -5,11 +5,12 @@ import { ConsoleButtons } from '../components/ConsoleButtons/ConsoleButtons';
 import { Footer } from '../components/Footer/Footer';
 import { GameResults } from '../components/GameResults/GameResults';
 import { Hero } from '../components/Hero/Hero';
+import { Loader } from '../components/Loader/Loader';
 import React from 'react';
 import { useSearchContext } from '../utils/context/SearchState';
 
 export const Main = () => {
-	const [{ error }, dispatch] = useSearchContext();
+	const [{ error, gameLoading }, dispatch] = useSearchContext();
 
 	const closeModal = () => {
 		dispatch({ type: CLEAR_ERROR });
@@ -19,19 +20,20 @@ export const Main = () => {
 		<div className='main-content'>
 			<Hero />
 			<ConsoleButtons />
+			{gameLoading && <Loader />}
 			<section className='section'>
 				<div>
 					<GameResults />
 					<AnimeResults />
-					{error && (
+					{error ? (
 						<AlertModal
 							closeModal={closeModal}
-							type={error?.type}
-							icon={error?.icon}
-							message={error?.message}
-							subMessage={error?.subMessage}
+							type={error.type}
+							icon={error.icon}
+							message={error.message}
+							subMessage={error.subMessage}
 						/>
-					)}
+					) : null}
 				</div>
 			</section>
 			<Footer />

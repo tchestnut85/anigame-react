@@ -1,18 +1,21 @@
 import dayjs from 'dayjs';
 
-const capitalizeFirstLetter = string => {
+export function capitalizeFirstLetter(string) {
 	return `${string[0].toUpperCase()}${string.slice(1)}`;
-};
+}
 
-const capitalizeWords = string => {
+export function capitalizeWords(string) {
 	return string
 		.split(' ')
 		.map(word => capitalizeFirstLetter(word))
 		.join(' ');
-};
+}
 
-const formatDate = date => {
+export function formatDate(date) {
 	return dayjs(date).format('MMM DD, YYYY');
-};
+}
 
-export { capitalizeFirstLetter, capitalizeWords, formatDate };
+export function getYear(dateString) {
+	const parts = dateString.split('-');
+	return parts[0];
+}

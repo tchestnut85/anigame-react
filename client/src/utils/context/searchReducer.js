@@ -1,6 +1,7 @@
 import {
 	CLEAR_ANIME_LOADING,
 	CLEAR_DATA,
+	CLEAR_DETAILS,
 	CLEAR_ERROR,
 	CLEAR_GAME_LOADING,
 	CLEAR_STORAGE,
@@ -8,6 +9,7 @@ import {
 	LOAD_STORAGE,
 	SET_ANIME_DATA,
 	SET_ANIME_LOADING,
+	SET_DETAILS,
 	SET_ERROR,
 	SET_GAME_DATA,
 	SET_GAME_LOADING,
@@ -51,6 +53,19 @@ const reducer = (state, { type, payload }) => {
 						url: payload.url,
 					},
 				],
+			};
+		case SET_DETAILS:
+			return {
+				...state,
+				details: {
+					type: payload.detailsType,
+					...payload.data,
+				},
+			};
+		case CLEAR_DETAILS:
+			return {
+				...state,
+				details: null,
 			};
 		case SET_GAME_LOADING:
 			return {

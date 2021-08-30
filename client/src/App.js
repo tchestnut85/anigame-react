@@ -1,6 +1,10 @@
 import './index.css';
 
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
+import { Details } from './pages/Details';
 import { Footer } from './components/Footer/Footer';
+import { Hero } from './components/Hero/Hero';
 import { Main } from './pages/Main';
 import { NavBar } from './components/NavBar/NavBar';
 import { SearchProvider } from './utils/context/SearchState';
@@ -12,7 +16,21 @@ function App() {
 			<SearchProvider>
 				<div className={styles.container}>
 					<NavBar />
-					<Main />
+					<Hero />
+					<Router>
+						<Switch>
+							<Route
+								exact
+								path='/anigame-react'
+								component={Main}
+							/>
+							<Route
+								exact
+								path={`/anigame-react/:title`}
+								component={Details}
+							/>
+						</Switch>
+					</Router>
 					<Footer />
 				</div>
 			</SearchProvider>

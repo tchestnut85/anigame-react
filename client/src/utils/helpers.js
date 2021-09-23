@@ -19,3 +19,7 @@ export function getYear(dateString) {
 	const parts = dateString.split('-');
 	return parts[0];
 }
+
+export function replaceSpaces(string) {
+	return string.toLowerCase().replaceAll(' ', '_');
+}

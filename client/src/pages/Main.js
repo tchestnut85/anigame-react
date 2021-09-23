@@ -3,7 +3,6 @@ import { AnimeResults } from '../components/AnimeResults/AnimeResults';
 import { CLEAR_ERROR } from '../utils/context/searchActions';
 import { ConsoleButtons } from '../components/ConsoleButtons/ConsoleButtons';
 import { GameResults } from '../components/GameResults/GameResults';
-import { Hero } from '../components/Hero/Hero';
 import { Loader } from '../components/Loader/Loader';
 import React from 'react';
 import { useSearchContext } from '../utils/context/SearchState';
@@ -17,7 +16,6 @@ export const Main = () => {
 
 	return (
 		<div className='main-content'>
-			<Hero />
 			<ConsoleButtons />
 			{gameLoading && <Loader />}
 			<section className='section'>

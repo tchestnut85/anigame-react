@@ -8,12 +8,15 @@ import {
 	SET_STREAM_URL,
 } from '../../utils/context/searchActions';
 import React, { useEffect } from 'react';
+import { capitalizeWords, replaceSpaces } from '../../utils/helpers';
 import { getAnimeData, getAnimeStreamUrl } from '../../utils/API';
 
+import { Link } from 'react-router-dom';
 import { ReviewStars } from '../ReviewStars/ReviewStars';
-import { capitalizeWords } from '../../utils/helpers';
 import { modalProps } from '../../constants/modalValues';
+import { options } from '../../constants/detailsOptions';
 import { reviewTypes } from '../../utils/renderScore';
+import { setDetails } from '../../utils/context/searchActions';
 import { useSearchContext } from '../../utils/context/SearchState';
 
 export const AnimeResults = () => {
@@ -142,12 +145,28 @@ export const AnimeResults = () => {
 										className='container has-text-centered is-size-5'
 										id={`${anime.attributes.canonicalTitle}-info`}
 									>
-										<h3
-											className='title has-text-centered is-size-3'
-											id={`${anime.attributes.canonicalTitle}-title`}
+										<Link
+											to={`/anigame-react/${replaceSpaces(
+												anime.attributes.canonicalTitle
+											)}`}
+											onClick={() =>
+												setDetails(
+													options.anime,
+													anime,
+													dispatch
+												)
+											}
 										>
-											{anime.attributes.canonicalTitle}
-										</h3>
+											<h3
+												className='title has-text-centered is-size-3'
+												id={`${anime.attributes.canonicalTitle}-title`}
+											>
+												{
+													anime.attributes
+														.canonicalTitle
+												}
+											</h3>
+										</Link>
 									</div>
 									<div
 										className='container is-centered'

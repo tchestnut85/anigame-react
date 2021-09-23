@@ -1,12 +1,16 @@
 import { capitalizeWords, formatDate } from '../../utils/helpers';
 
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { ReviewStars } from '../ReviewStars/ReviewStars';
+import { options } from '../../constants/detailsOptions';
+import { replaceSpaces } from '../../utils/helpers';
 import { reviewTypes } from '../../utils/renderScore';
+import { setDetails } from '../../utils/context/searchActions';
 import { useSearchContext } from '../../utils/context/SearchState';
 
 export const GameResults = () => {
-	const [state] = useSearchContext();
+	const [state, dispatch] = useSearchContext();
 	const { gameState: games, query, gameScore } = state;
 
 	return (
@@ -46,19 +50,34 @@ export const GameResults = () => {
 										id='game-header'
 										className='column has-text-centered'
 									>
-										<h1 className='title'>{game.name}</h1>
+										<Link
+											to={`/anigame-react/${replaceSpaces(
+												query
+											)}`}
+											onClick={() =>
+												setDetails(
+													options.game,
+													game,
+													dispatch
+												)
+											}
+										>
+											<h3 className='result-title'>
+												{game.name}
+											</h3>
+										</Link>
 										<div
 											id='game-stars'
 											className='container has-text-centered'
 										>
-											<h3 className='title has-text-centered is-size-3'>
+											<h4 className='title has-text-centered is-size-3'>
 												<ReviewStars
 													reviewType={
 														reviewTypes.game
 													}
 													rawScore={gameScore}
 												/>
-											</h3>
+											</h4>
 										</div>
 									</div>
 								</div>
@@ -84,12 +103,6 @@ export const GameResults = () => {
 											</a>
 										</p>
 									</div>
-									{/* <div
-										id='column-description'
-										className='column'
-									>
-										<p>{game.description}</p>
-									</div> */}
 								</div>
 							</div>
 						))}

@@ -16,6 +16,5 @@
 	background-color: #c5c7d4;
 	border: 1px solid var(--offBlack);
 	border-radius: 4px;
-	cursor: pointer;
 	box-shadow: 0 0 4px rgb(0, 0, 0);
 }

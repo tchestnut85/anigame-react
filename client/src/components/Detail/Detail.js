@@ -30,10 +30,11 @@ export const Detail = () => {
 						<h3 className={styles.title}>{details?.name}</h3>
 						<div className='columns'>
 							<p className='column subtitle is-6 has-text-right'>
-								Released: {getYear(details?.release_date)}
+								<b>Released:</b>{' '}
+								{getYear(details?.release_date)}
 							</p>
 							<p className='column subtitle is-6 has-text-left'>
-								Genre: {details?.genres[0].name}
+								<b>Genre:</b> {details?.genres[0].name}
 							</p>
 						</div>
 						<div className='columns'>

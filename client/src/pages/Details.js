@@ -1,12 +1,17 @@
 import { Detail } from '../components/Detail/Detail';
+import { Link } from 'react-router-dom';
 import React from 'react';
-
-// import { Loader } from '../components/Loader/Loader';
+import styles from '../styles/App.module.css';
 
 export const Details = () => {
 	return (
-		<section className='columns section is-centered is-vcentered'>
+		<section
+			className={`${styles.container} columns section is-centered is-vcentered`}
+		>
 			<Detail />
+			<Link className='button is-dark' to={'/anigame-react'}>
+				Back to Results
+			</Link>
 		</section>
 	);
 };

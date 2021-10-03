@@ -1,4 +1,4 @@
-import './index.css';
+import './styles/index.css';
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import { Hero } from './components/Hero/Hero';
 import { Main } from './pages/Main';
 import { NavBar } from './components/NavBar/NavBar';
 import { SearchProvider } from './utils/context/SearchState';
-import styles from './App.module.css';
+import styles from './styles/App.module.css';
 
 function App() {
 	return (

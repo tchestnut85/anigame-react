@@ -3,6 +3,8 @@
 	"version": "1.0.0",
 	"description": "AniGame - search for an anime title to find related video games",
 	"scripts": {
+		"start": "cd client && npm start",
+		"install": "cd client && npm i",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {

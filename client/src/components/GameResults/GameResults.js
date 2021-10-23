@@ -7,6 +7,7 @@ import { options } from '../../constants/detailsOptions';
 import { replaceSpaces } from '../../utils/helpers';
 import { reviewTypes } from '../../utils/renderScore';
 import { setDetails } from '../../utils/context/searchActions';
+import styles from './GameResults.module.css';
 import { useSearchContext } from '../../utils/context/SearchState';
 
 export const GameResults = () => {
@@ -16,8 +17,8 @@ export const GameResults = () => {
 	return (
 		<>
 			{games.length ? (
-				<div id='game-container'>
-					<p id='game-results'>
+				<div>
+					<p className={styles.results}>
 						Games found for {capitalizeWords(query)}:
 					</p>
 					<div
@@ -29,20 +30,20 @@ export const GameResults = () => {
 								key={game.id}
 								id='game-column'
 								data-name={query}
-								className='column search-results is-two-fifths mx-3 my-4'
+								className={`column ${styles.searchResults} is-two-fifths mx-3 my-4`}
 							>
 								<div
 									id='base-search'
-									className='columns is-vcentered'
+									className={`columns is-vcentered ${styles.content}`}
 								>
 									<div
 										id='column-image'
-										className='game-col-img column is-one-fith is-narrow'
+										className={`${styles.imgColumn} column is-one-fith is-narrow`}
 									>
 										<img
 											id='game-image'
 											src={game.image.original}
-											className='image'
+											className={styles.image}
 											alt={`Cover Art for ${game.name}`}
 										/>
 									</div>
@@ -62,9 +63,7 @@ export const GameResults = () => {
 												)
 											}
 										>
-											<h3 className='result-title'>
-												{game.name}
-											</h3>
+											<h3>{game.name}</h3>
 										</Link>
 										<div
 											id='game-stars'

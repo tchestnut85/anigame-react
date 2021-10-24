@@ -2,8 +2,9 @@
 	--nintendoRed: rgba(216, 0, 0, 0.76);
 	--xBoxGreen: rgba(0, 105, 9, 0.795);
 	--playstationBlue: rgba(0, 17, 255, 0.644);
-	--steamLight: rgba(219, 219, 219, 0.863);
+	--steamLight: #dbdbdbdc;
 	--offWhite: rgb(230, 227, 227);
 	--offBlack: rgb(22, 22, 22);
 	--backgroundDark: rgb(39, 39, 39);
+	--backgroundLight: #c5c7d4;
 }

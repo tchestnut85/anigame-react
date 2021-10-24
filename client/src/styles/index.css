@@ -51,7 +51,6 @@ h4 {
 	padding: 3rem;
 }
 
-#game-results,
 #anime-results {
 	font-size: 3rem;
 	font-family: 'Share Tech Mono', monospace;
@@ -265,11 +264,6 @@ h4 {
 
 	.app-description {
 		text-align: center;
-	}
-
-	.game-col-img {
-		display: flex !important;
-		justify-content: center;
 	}
 
 	.anime-rating-stream-div {

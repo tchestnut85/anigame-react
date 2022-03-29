@@ -26,5 +26,5 @@ export const CLEAR_STORAGE = 'CLEAR_STORAGE';
 
 // Action Creators
 export const setDetails = (detailsType, data, dispatch) => {
-	dispatch({ type: SET_DETAILS, payload: { detailsType, data } });
+  dispatch({ type: SET_DETAILS, payload: { detailsType, data } });
 };

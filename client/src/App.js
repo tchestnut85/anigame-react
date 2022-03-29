@@ -11,31 +11,23 @@ import { SearchProvider } from './utils/context/SearchState';
 import styles from './styles/App.module.css';
 
 function App() {
-	return (
-		<>
-			<SearchProvider>
-				<div className={styles.container}>
-					<NavBar />
-					<Hero />
-					<Router>
-						<Switch>
-							<Route
-								exact
-								path='/anigame-react'
-								component={Main}
-							/>
-							<Route
-								exact
-								path={`/anigame-react/:title`}
-								component={Details}
-							/>
-						</Switch>
-					</Router>
-					<Footer />
-				</div>
-			</SearchProvider>
-		</>
-	);
+  return (
+    <>
+      <SearchProvider>
+        <div className={styles.container}>
+          <NavBar />
+          <Hero />
+          <Router>
+            <Switch>
+              <Route exact path="/anigame-react" component={Main} />
+              <Route exact path={`/anigame-react/:title`} component={Details} />
+            </Switch>
+          </Router>
+          <Footer />
+        </div>
+      </SearchProvider>
+    </>
+  );
 }
 
 export default App;

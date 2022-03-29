@@ -1,5 +1,3 @@
-import './styles/index.css';
-
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import { Details } from './pages/Details';
@@ -8,6 +6,9 @@ import { Hero } from './components/Hero/Hero';
 import { Main } from './pages/Main';
 import { NavBar } from './components/NavBar/NavBar';
 import { SearchProvider } from './utils/context/SearchState';
+import store from './redux/store';
+
+import './styles/index.css';
 import styles from './styles/App.module.css';
 
 function App() {

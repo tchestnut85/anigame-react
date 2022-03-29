@@ -1,32 +1,38 @@
 {
-	"name": "anigame-react",
-	"version": "1.0.0",
-	"description": "AniGame - search for an anime title to find related video games",
-	"scripts": {
-		"start": "cd client && npm start",
-		"install": "cd client && npm i",
-		"lint": "npx eslint client/src",
-		"format": "npx prettier --write client/src"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/tchestnut85/anigame-react.git"
-	},
-	"author": "Tom Chestnut",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/tchestnut85/anigame-react/issues"
-	},
-	"homepage": "https://github.com/tchestnut85/anigame-react#readme",
-	"devDependencies": {
-		"eslint": "^7.32.0",
-		"eslint-config-airbnb": "^18.2.1",
-		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-import": "^2.24.2",
-		"eslint-plugin-jsx-a11y": "^6.4.1",
-		"eslint-plugin-prettier": "^4.0.0",
-		"eslint-plugin-react": "^7.26.0",
-		"eslint-plugin-react-hooks": "^4.2.0",
-		"prettier": "^2.6.1"
-	}
+  "name": "anigame-react",
+  "version": "1.0.0",
+  "description": "AniGame - search for an anime title to find related video games",
+  "scripts": {
+    "start": "cd client && npm start",
+    "install": "cd client && npm i",
+    "lint": "npx eslint client/src",
+    "format": "npx prettier --write client/src",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tchestnut85/anigame-react.git"
+  },
+  "author": "Tom Chestnut",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tchestnut85/anigame-react/issues"
+  },
+  "homepage": "https://github.com/tchestnut85/anigame-react#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
+    "prettier": "^2.6.1"
+  },
+  "lint-staged": {
+    "client/src/*.{js,json,css}": "npm run format"
+  }
 }

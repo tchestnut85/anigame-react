@@ -1,3 +1,6 @@
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import {
   CLEAR_DATA,
   CLEAR_ERROR,
@@ -10,25 +13,26 @@ import {
   SET_QUERY,
   SET_STORAGE,
 } from '../../utils/context/searchActions';
-import React, { useEffect, useState } from 'react';
 import { getGameData, getGameScore } from '../../utils/API';
 import { getSavedSearches, saveSearch } from '../../utils/localStorage';
-
 import { modalProps } from '../../constants/modalValues';
 import { useSearchContext } from '../../utils/context/SearchState';
+import { setQuery } from '../../redux/query';
 
 export const Search = () => {
   // search bar form state
   const [searchTerm, setSearchTerm] = useState('');
 
+  const dispatch = useDispatch();
+
   // search context
-  const [{ savedSearches }, dispatch] = useSearchContext();
+  const [{ savedSearches }, reactDispatch] = useSearchContext();
   const { empty: emptyError } = modalProps;
 
   // Load saved searches if any in localstorage, if not set an empty array to savedSearches state
   useEffect(() => {
     const searches = getSavedSearches();
-    dispatch({ type: LOAD_STORAGE, payload: searches });
+    reactDispatch({ type: LOAD_STORAGE, payload: searches });
     //eslint-disable-next-line
   }, []);
 
@@ -39,15 +43,15 @@ export const Search = () => {
     const gameTitle = searchTerm.trim().toLowerCase();
 
     // clear the context state on a new search
-    dispatch({ type: CLEAR_DATA });
+    reactDispatch({ type: CLEAR_DATA });
 
     try {
-      dispatch({ type: SET_GAME_LOADING });
+      reactDispatch({ type: SET_GAME_LOADING });
 
       if (searchTerm === '') {
-        dispatch({ type: SET_ERROR, payload: emptyError });
+        reactDispatch({ type: SET_ERROR, payload: emptyError });
         setTimeout(() => {
-          dispatch({ type: CLEAR_ERROR });
+          reactDispatch({ type: CLEAR_ERROR });
         }, 3000);
         throw Error('You must enter something to search for.');
       }
@@ -56,7 +60,7 @@ export const Search = () => {
       const response = await getGameData(gameTitle);
       const scoreResponse = await getGameScore(gameTitle);
 
-      dispatch({ type: SET_STORAGE, payload: gameTitle });
+      reactDispatch({ type: SET_STORAGE, payload: gameTitle });
       saveSearch(savedSearches, gameTitle);
 
       if (!response.ok) {
@@ -75,9 +79,10 @@ export const Search = () => {
       const scoreData = await scoreResponse.json();
 
       // set the context gameResults to the response's data
-      dispatch({ type: SET_QUERY, payload: gameTitle });
-      dispatch({ type: SET_GAME_DATA, payload: gameData.results });
-      dispatch({
+      dispatch(setQuery(gameTitle));
+      reactDispatch({ type: SET_QUERY, payload: gameTitle }); // TODO - remove this
+      reactDispatch({ type: SET_GAME_DATA, payload: gameData.results });
+      reactDispatch({
         type: SET_GAME_SCORE,
         payload: parseInt(scoreData?.results[0]?.score),
       });
@@ -86,7 +91,7 @@ export const Search = () => {
       console.error(`There was an error: ${err.message}`);
     }
 
-    dispatch({ type: CLEAR_GAME_LOADING });
+    reactDispatch({ type: CLEAR_GAME_LOADING });
   };
 
   return (

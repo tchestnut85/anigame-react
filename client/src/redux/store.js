@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-// TODO - create and import reducer
+import queryReducer from './query';
 
 const store = configureStore({
-  reducer: () => ({
-    games: [{ name: 'test1', description: 'test1' }],
-  }),
+  reducer: {
+    query: queryReducer,
+  },
   preloadedState: {},
   devTools: true, // true will leave redux devtools on in production (this is intentional)
 });

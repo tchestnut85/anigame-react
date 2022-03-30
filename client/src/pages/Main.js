@@ -15,7 +15,7 @@ export const Main = () => {
   };
 
   return (
-    <div className="main-content">
+    <main className="main-content">
       <ConsoleButtons />
       {gameLoading && <Loader />}
       <section className="section">
@@ -33,6 +33,6 @@ export const Main = () => {
           ) : null}
         </div>
       </section>
-    </div>
+    </main>
   );
 };

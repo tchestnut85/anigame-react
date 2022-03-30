@@ -1,3 +1,6 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
+
 import {
   CLEAR_DATA,
   CLEAR_ERROR,
@@ -12,19 +15,21 @@ import {
 import { getGameData, getGameScore } from '../../utils/API';
 
 import { ItemButton } from '../ItemButton/ItemButton';
-import React from 'react';
 import { Search } from '../Search/Search';
 import { clearSearches } from '../../utils/localStorage';
 import { messages } from '../../constants/messages';
 import { modalProps } from '../../constants/modalValues';
 import { useSearchContext } from '../../utils/context/SearchState';
+import { setQuery } from '../../redux/query';
 
 export const NavBar = () => {
+  const dispatch = useDispatch();
+
   const { empty: emptyError } = modalProps;
-  const [{ savedSearches, query }, dispatch] = useSearchContext();
+  const [{ savedSearches, query }, contextDispatch] = useSearchContext();
 
   const handleClear = () => {
-    dispatch({ type: CLEAR_STORAGE });
+    contextDispatch({ type: CLEAR_STORAGE });
     clearSearches();
   };
 
@@ -33,15 +38,15 @@ export const NavBar = () => {
     const searchTerm = e.target.textContent.trim().toLowerCase();
 
     if (searchTerm === query) return;
-    dispatch({ type: CLEAR_DATA });
+    contextDispatch({ type: CLEAR_DATA });
 
     try {
-      dispatch({ type: SET_GAME_LOADING });
+      contextDispatch({ type: SET_GAME_LOADING });
 
       if (searchTerm === '') {
-        dispatch({ type: SET_ERROR, payload: emptyError });
+        contextDispatch({ type: SET_ERROR, payload: emptyError });
         setTimeout(() => {
-          dispatch({ type: CLEAR_ERROR });
+          contextDispatch({ type: CLEAR_ERROR });
         }, 3000);
         throw Error(messages.errors.empty);
       }
@@ -63,9 +68,10 @@ export const NavBar = () => {
       const gameData = await gameResponse.json();
       const scoreData = await scoreResponse.json();
 
-      dispatch({ type: SET_QUERY, payload: searchTerm });
-      dispatch({ type: SET_GAME_DATA, payload: gameData.results });
-      dispatch({
+      dispatch(setQuery(searchTerm));
+      contextDispatch({ type: SET_QUERY, payload: searchTerm }); // TODO - remove this
+      contextDispatch({ type: SET_GAME_DATA, payload: gameData.results });
+      contextDispatch({
         type: SET_GAME_SCORE,
         payload: parseInt(scoreData?.results[0]?.score),
       });
@@ -73,7 +79,7 @@ export const NavBar = () => {
       console.error(`There was an error: ${err.message}`);
     }
 
-    dispatch({ type: CLEAR_GAME_LOADING });
+    contextDispatch({ type: CLEAR_GAME_LOADING });
   };
 
   return (

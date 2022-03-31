@@ -13,11 +13,12 @@ import {
   SET_QUERY,
   SET_STORAGE,
 } from '../../utils/context/searchActions';
-import { getGameData, getGameScore } from '../../utils/API';
+import { getGameData as fetchGameData, getGameScore } from '../../utils/API';
 import { getSavedSearches, saveSearch } from '../../utils/localStorage';
 import { modalProps } from '../../constants/modalValues';
 import { useSearchContext } from '../../utils/context/SearchState';
 import { setQuery } from '../../redux/query';
+import { getGameData } from '../../redux/game';
 
 export const Search = () => {
   // search bar form state
@@ -57,7 +58,8 @@ export const Search = () => {
       }
 
       // get the game's main data and review score
-      const response = await getGameData(gameTitle);
+      dispatch(getGameData(gameTitle));
+      const response = await fetchGameData(gameTitle); // TODO - remove this
       const scoreResponse = await getGameScore(gameTitle);
 
       reactDispatch({ type: SET_STORAGE, payload: gameTitle });

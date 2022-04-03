@@ -23,6 +23,7 @@ export const AnimeResults = () => {
   const [state, dispatch] = useSearchContext();
   const { query, animeLoading, gameState, animeState, animeStreamUrls } = state;
 
+  // TODO - set the error in anime redux if no anime found for the search
   const { anime: animeError } = modalProps;
   const displayError = () => {
     dispatch({

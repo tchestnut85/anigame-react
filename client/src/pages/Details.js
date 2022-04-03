@@ -1,6 +1,8 @@
-import { Detail } from '../components/Detail/Detail';
 import { Link } from 'react-router-dom';
 import React from 'react';
+
+import { Detail } from '../components/Detail/Detail';
+
 import styles from '../styles/App.module.css';
 
 export const Details = () => {

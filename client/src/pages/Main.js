@@ -1,15 +1,20 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { AlertModal } from '../components/AlertModal/AlertModal';
 import { AnimeResults } from '../components/AnimeResults/AnimeResults';
 import { CLEAR_ERROR } from '../utils/context/searchActions';
 import { ConsoleButtons } from '../components/ConsoleButtons/ConsoleButtons';
 import { GameResults } from '../components/GameResults/GameResults';
 import { Loader } from '../components/Loader/Loader';
-import React from 'react';
 import { useSearchContext } from '../utils/context/SearchState';
 
 export const Main = () => {
-  const [{ error, gameLoading }, dispatch] = useSearchContext();
+  const { isLoading } = useSelector(state => state.game);
 
+  const [{ error }, dispatch] = useSearchContext();
+
+  // TODO - remove this when adding anime redux
   const closeModal = () => {
     dispatch({ type: CLEAR_ERROR });
   };
@@ -17,12 +22,12 @@ export const Main = () => {
   return (
     <main className="main-content">
       <ConsoleButtons />
-      {gameLoading && <Loader />}
+      {isLoading && <Loader />}
       <section className="section">
         <div>
           <GameResults />
           <AnimeResults />
-          {error ? (
+          {error ? ( // TODO - when adding anime redux, make sure the error gets set correctly
             <AlertModal
               closeModal={closeModal}
               type={error.type}

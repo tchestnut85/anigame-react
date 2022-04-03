@@ -3,22 +3,13 @@ import { useDispatch } from 'react-redux';
 
 import {
   CLEAR_DATA,
-  CLEAR_ERROR,
-  CLEAR_GAME_LOADING,
   LOAD_STORAGE,
-  SET_ERROR,
-  SET_GAME_DATA,
-  SET_GAME_LOADING,
-  SET_GAME_SCORE,
-  SET_QUERY,
   SET_STORAGE,
 } from '../../utils/context/searchActions';
-import { getGameData as fetchGameData, getGameScore } from '../../utils/API';
 import { getSavedSearches, saveSearch } from '../../utils/localStorage';
-import { modalProps } from '../../constants/modalValues';
 import { useSearchContext } from '../../utils/context/SearchState';
 import { setQuery } from '../../redux/query';
-import { getGameData } from '../../redux/game';
+import { getGameData, getGameScore } from '../../redux/game';
 
 export const Search = () => {
   // search bar form state
@@ -28,7 +19,6 @@ export const Search = () => {
 
   // search context
   const [{ savedSearches }, reactDispatch] = useSearchContext();
-  const { empty: emptyError } = modalProps;
 
   // Load saved searches if any in localstorage, if not set an empty array to savedSearches state
   useEffect(() => {
@@ -47,53 +37,18 @@ export const Search = () => {
     reactDispatch({ type: CLEAR_DATA });
 
     try {
-      reactDispatch({ type: SET_GAME_LOADING });
-
-      if (searchTerm === '') {
-        reactDispatch({ type: SET_ERROR, payload: emptyError });
-        setTimeout(() => {
-          reactDispatch({ type: CLEAR_ERROR });
-        }, 3000);
-        throw Error('You must enter something to search for.');
-      }
-
-      // get the game's main data and review score
+      // TODO - consider combining these 3 into one action creator
       dispatch(getGameData(gameTitle));
-      const response = await fetchGameData(gameTitle); // TODO - remove this
-      const scoreResponse = await getGameScore(gameTitle);
+      dispatch(getGameScore(gameTitle));
+      dispatch(setQuery(gameTitle));
 
       reactDispatch({ type: SET_STORAGE, payload: gameTitle });
       saveSearch(savedSearches, gameTitle);
 
-      if (!response.ok) {
-        throw Error(
-          `There was an error: ${response.statusText} (${response.status})`
-        );
-      }
-      if (!scoreResponse.ok) {
-        throw Error(
-          `There was an error: ${scoreResponse.statusText} (${scoreResponse.status})`
-        );
-      }
-
-      // get the game's data and review score
-      const gameData = await response.json();
-      const scoreData = await scoreResponse.json();
-
-      // set the context gameResults to the response's data
-      dispatch(setQuery(gameTitle));
-      reactDispatch({ type: SET_QUERY, payload: gameTitle }); // TODO - remove this
-      reactDispatch({ type: SET_GAME_DATA, payload: gameData.results });
-      reactDispatch({
-        type: SET_GAME_SCORE,
-        payload: parseInt(scoreData?.results[0]?.score),
-      });
       setSearchTerm('');
     } catch (err) {
       console.error(`There was an error: ${err.message}`);
     }
-
-    reactDispatch({ type: CLEAR_GAME_LOADING });
   };
 
   return (
@@ -113,6 +68,7 @@ export const Search = () => {
         className="button is-black is-rounded"
         type="submit"
         value="Submit input"
+        disabled={!searchTerm}
       >
         Search
       </button>

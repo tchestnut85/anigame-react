@@ -8,7 +8,6 @@ export const CLEAR_GAME_DATA = 'CLEAR_GAME_DATA';
 export const CLEAR_GAME_DETAILS = 'CLEAR_GAME_DETAILS';
 
 export const SET_GAME_LOADING = 'SET_GAME_LOADING';
-export const CLEAR_GAME_LOADING = 'CLEAR_GAME_LOADING';
 
 const OK_STATUS = 'OK';
 
@@ -59,6 +58,10 @@ export const setGameDetails = id => dispatch => {
   dispatch({ type: SET_GAME_DETAIL_ID, payload: id });
 };
 
+export const clearGameData = () => dispatch => {
+  dispatch({ type: CLEAR_GAME_DATA });
+};
+
 // initial state
 const INITIAL_STATE = {
   games: [],
@@ -91,6 +94,8 @@ const gameReducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         detailId: payload,
       };
+    case CLEAR_GAME_DATA:
+      return INITIAL_STATE;
     default:
       return state;
   }

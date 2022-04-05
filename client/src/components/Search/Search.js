@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import {
-  CLEAR_DATA,
-  LOAD_STORAGE,
-  SET_STORAGE,
-} from '../../utils/context/searchActions';
+import { LOAD_STORAGE, SET_STORAGE } from '../../utils/context/searchActions';
 import { getSavedSearches, saveSearch } from '../../utils/localStorage';
 import { useSearchContext } from '../../utils/context/SearchState';
 import { setQuery } from '../../redux/query';
-import { getGameData, getGameScore } from '../../redux/game';
+import { getGameData, getGameScore, clearGameData } from '../../redux/game';
 
 export const Search = () => {
   // search bar form state
@@ -23,7 +19,7 @@ export const Search = () => {
   // Load saved searches if any in localstorage, if not set an empty array to savedSearches state
   useEffect(() => {
     const searches = getSavedSearches();
-    reactDispatch({ type: LOAD_STORAGE, payload: searches });
+    reactDispatch({ type: LOAD_STORAGE, payload: searches }); // TODO - convert to redux
     //eslint-disable-next-line
   }, []);
 
@@ -33,16 +29,14 @@ export const Search = () => {
     e.preventDefault();
     const gameTitle = searchTerm.trim().toLowerCase();
 
-    // clear the context state on a new search
-    reactDispatch({ type: CLEAR_DATA });
+    dispatch(clearGameData());
 
     try {
-      // TODO - consider combining these 3 into one action creator
       dispatch(getGameData(gameTitle));
       dispatch(getGameScore(gameTitle));
       dispatch(setQuery(gameTitle));
 
-      reactDispatch({ type: SET_STORAGE, payload: gameTitle });
+      reactDispatch({ type: SET_STORAGE, payload: gameTitle }); // TODO - convert to redux
       saveSearch(savedSearches, gameTitle);
 
       setSearchTerm('');

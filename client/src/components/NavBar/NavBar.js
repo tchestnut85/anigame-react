@@ -1,18 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  CLEAR_DATA,
-  CLEAR_GAME_LOADING,
-  CLEAR_STORAGE,
-} from '../../utils/context/searchActions';
-
 import { ItemButton } from '../ItemButton/ItemButton';
 import { Search } from '../Search/Search';
+
 import { clearSearches } from '../../utils/localStorage';
 import { useSearchContext } from '../../utils/context/SearchState';
 import { setQuery } from '../../redux/query';
-import { getGameData, getGameScore } from '../../redux/game';
+import { getGameData, getGameScore, clearGameData } from '../../redux/game';
+import { CLEAR_STORAGE } from '../../utils/context/searchActions';
 
 export const NavBar = () => {
   const dispatch = useDispatch();
@@ -21,8 +17,13 @@ export const NavBar = () => {
   const [{ savedSearches }, contextDispatch] = useSearchContext();
 
   const handleClear = () => {
-    contextDispatch({ type: CLEAR_STORAGE });
+    contextDispatch({ type: CLEAR_STORAGE }); // TODO - convert this to redux
     clearSearches();
+  };
+
+  const handleClearData = () => {
+    dispatch(clearGameData());
+    // TODO - add claerAnimeData later
   };
 
   const handleSearch = async e => {
@@ -30,7 +31,7 @@ export const NavBar = () => {
     const searchTerm = e.target.textContent.trim().toLowerCase();
 
     if (searchTerm === query) return;
-    contextDispatch({ type: CLEAR_DATA });
+    handleClearData();
 
     try {
       dispatch(getGameData(searchTerm));
@@ -39,8 +40,6 @@ export const NavBar = () => {
     } catch (err) {
       console.error(`There was an error: ${err.message}`);
     }
-
-    contextDispatch({ type: CLEAR_GAME_LOADING });
   };
 
   return (

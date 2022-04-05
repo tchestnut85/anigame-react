@@ -1,11 +1,12 @@
 import axios from 'axios';
 
+import { PROXY } from '../constants';
+
 const GAMESPOT_URL = '/http://www.gamespot.com/api';
-const proxy = process.env.REACT_APP_CORS_PROXY;
 const gamespotApiKey = process.env.REACT_APP_GAMESPOT_KEY;
 
 const gameRequest = axios.create({
-  baseURL: `${proxy}${GAMESPOT_URL}`,
+  baseURL: `${PROXY}${GAMESPOT_URL}`,
   method: 'GET',
 });
 

@@ -1,71 +1,58 @@
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { ReviewStars } from '../ReviewStars/ReviewStars';
+
 import {
-  CLEAR_ANIME_LOADING,
   CLEAR_ERROR,
   CLEAR_STREAM_URL_DATA,
-  SET_ANIME_DATA,
-  SET_ANIME_LOADING,
   SET_ERROR,
   SET_STREAM_URL,
 } from '../../utils/context/searchActions';
-import React, { useEffect } from 'react';
 import { capitalizeWords, replaceSpaces } from '../../utils/helpers';
-import { getAnimeData, getAnimeStreamUrl } from '../../utils/API';
-
-import { Link } from 'react-router-dom';
-import { ReviewStars } from '../ReviewStars/ReviewStars';
+import { getAnimeStreamUrl } from '../../utils/API';
 import { modalProps } from '../../constants/modalValues';
 import { options } from '../../constants/detailsOptions';
 import { reviewTypes } from '../../utils/renderScore';
 import { setDetails } from '../../utils/context/searchActions';
 import { useSearchContext } from '../../utils/context/SearchState';
 
+import { clearStreamData, getAnimeData } from '../../redux/anime';
+
 export const AnimeResults = () => {
-  const [state, dispatch] = useSearchContext();
-  const { query, animeLoading, gameState, animeState, animeStreamUrls } = state;
+  const dispatch = useDispatch();
+  const query = useSelector(state => state.query);
+  const { games } = useSelector(state => state.game);
+  const { animeTitles } = useSelector(state => state.anime);
+
+  const [state, reactDispatch] = useSearchContext();
+  const { animeLoading, animeStreamUrls } = state;
 
   // TODO - set the error in anime redux if no anime found for the search
   const { anime: animeError } = modalProps;
   const displayError = () => {
-    dispatch({
+    reactDispatch({
       type: SET_ERROR,
       payload: animeError,
     });
     setTimeout(() => {
-      dispatch({ type: CLEAR_ERROR });
+      reactDispatch({ type: CLEAR_ERROR });
     }, 3000);
   };
 
   // search for the anime based on the query, fetching from the Kitsu API
   const animeSearch = async () => {
-    dispatch({ type: CLEAR_STREAM_URL_DATA });
+    reactDispatch({ type: CLEAR_STREAM_URL_DATA });
+    dispatch(clearStreamData);
 
     try {
-      dispatch({ type: SET_ANIME_LOADING });
+      dispatch(getAnimeData(query));
 
-      const animeResponse = await getAnimeData(query);
-      if (!animeResponse.ok) {
-        displayError();
-        throw Error(
-          `There was an error: ${animeResponse.statusText} (${animeResponse.status})`
-        );
-      }
-
-      const { data } = await animeResponse.json();
-
-      // filter through the data object and return only the anime titles that actually match the query searched for
-      const matchedAnime = data.filter(anime =>
-        anime.attributes.canonicalTitle
-          .toLowerCase()
-          .includes(query.toLowerCase())
-      );
-
-      const isError = matchedAnime.length > 0 ? false : true;
+      const isError = !!animeTitles.length;
       if (isError) {
         displayError();
       }
-
-      dispatch({ type: SET_ANIME_DATA, payload: matchedAnime });
-      dispatch({ type: CLEAR_ANIME_LOADING });
     } catch (err) {
       console.error(err);
     }
@@ -84,7 +71,7 @@ export const AnimeResults = () => {
 
       const streamUrl = await streamUrlResponse.json();
 
-      dispatch({
+      reactDispatch({
         type: SET_STREAM_URL,
         payload: {
           id: animeId,
@@ -96,17 +83,17 @@ export const AnimeResults = () => {
     }
   };
 
-  // run the animeSearch function when gameState is populated/exists after initial game search
+  // run the animeSearch function when games is populated/exists after initial game search
   useEffect(() => {
-    if (gameState.length) {
+    if (games.length) {
       animeSearch();
     }
     //eslint-disable-next-line
-  }, [gameState]);
+  }, [games]);
 
   // run the streamUrlSearch when the anime search is done and animeLoading changes (state.animeLoading === false)
   useEffect(() => {
-    animeState.forEach(anime => {
+    animeTitles.forEach(anime => {
       streamUrlSearch(anime.id);
     });
     //eslint-disable-next-line
@@ -125,14 +112,14 @@ export const AnimeResults = () => {
 
   return (
     <>
-      {animeState.length ? (
+      {animeTitles.length ? (
         <div id="anime-container">
           <p id="anime-results">Anime found for {capitalizeWords(query)}:</p>
           <div
             id="results-container"
             className="columns is-multiline is-centered is-vcentered is-2 mt-4"
           >
-            {animeState.map(anime => {
+            {animeTitles.map(anime => {
               return (
                 <div
                   key={`anime-result-${anime.id}`}

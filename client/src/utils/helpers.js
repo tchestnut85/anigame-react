@@ -23,3 +23,9 @@ export function getYear(dateString) {
 export function replaceSpaces(string) {
   return string.toLowerCase().replaceAll(' ', '_');
 }
+
+export function getAnimeMatches(arr = [], title = '') {
+  return arr.filter(item =>
+    item.attributes.canonicalTitle.toLowerCase().includes(title.toLowerCase())
+  );
+}

@@ -1,15 +1,17 @@
 import { fetchGameData, fetchGameScore } from '../api/gameRequests';
 
+import { OK_STATUS } from '../constants';
+
 // action types
-export const SET_GAME_DATA = 'SET_GAME_DATA';
-export const SET_GAME_SCORE = 'SET_GAME_SCORE';
-export const SET_GAME_DETAIL_ID = 'SET_GAME_DETAIL_ID';
-export const CLEAR_GAME_DATA = 'CLEAR_GAME_DATA';
-export const CLEAR_GAME_DETAILS = 'CLEAR_GAME_DETAILS';
+const SET_GAME_DATA = 'SET_GAME_DATA';
+const CLEAR_GAME_DATA = 'CLEAR_GAME_DATA';
 
-export const SET_GAME_LOADING = 'SET_GAME_LOADING';
+const SET_GAME_SCORE = 'SET_GAME_SCORE';
 
-const OK_STATUS = 'OK';
+const SET_GAME_DETAIL_ID = 'SET_GAME_DETAIL_ID';
+const CLEAR_GAME_DETAILS = 'CLEAR_GAME_DETAILS';
+
+const SET_GAME_LOADING = 'SET_GAME_LOADING';
 
 // action creators
 export const getGameData = title => async dispatch => {
@@ -93,6 +95,11 @@ const gameReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         detailId: payload,
+      };
+    case CLEAR_GAME_DETAILS:
+      return {
+        ...state,
+        detailId: null,
       };
     case CLEAR_GAME_DATA:
       return INITIAL_STATE;

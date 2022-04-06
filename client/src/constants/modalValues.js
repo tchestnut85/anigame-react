@@ -1,4 +1,4 @@
-export const modalProps = {
+export const ERRORS = {
   anime: {
     type: 'anime-alert',
     icon: 'fas fa-sad-cry',

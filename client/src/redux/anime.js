@@ -1,6 +1,7 @@
-import { fetchAnimeData, fetchAnimeStreamUrl } from '../api/animeRequest';
-
+import { fetchAnimeData, fetchAnimeStreamUrls } from '../api/animeRequest';
 import { getAnimeMatches } from '../utils/helpers';
+import { ERRORS } from '../constants/modalValues';
+import { STATUSES } from '../constants/api';
 
 // action types
 const SET_ANIME_DATA = 'SET_ANIME_DATA';
@@ -11,8 +12,12 @@ const CLEAR_STREAM_URL_DATA = 'CLEAR_STREAM_URL_DATA';
 
 const SET_ANIME_LOADING = 'SET_ANIME_LOADING';
 
+const SET_ANIME_ERROR = 'SET_ANIME_ERROR';
+
 // action creators
 export const getAnimeData = title => async dispatch => {
+  dispatch({ type: CLEAR_STREAM_URL_DATA });
+
   try {
     dispatch({ type: SET_ANIME_LOADING, payload: true });
 
@@ -21,7 +26,7 @@ export const getAnimeData = title => async dispatch => {
       status,
     } = await fetchAnimeData(title);
 
-    if (status !== 200) {
+    if (status !== STATUSES.OK_CODE) {
       throw Error(`There was a ${status} error`);
     }
 
@@ -34,8 +39,23 @@ export const getAnimeData = title => async dispatch => {
   }
 };
 
-export const clearStreamData = () => dispatch => {
-  dispatch({ type: CLEAR_STREAM_URL_DATA });
+export const getAnimeStreamUrls = ids => async dispatch => {
+  try {
+    const data = await Promise.all(ids.map(id => fetchAnimeStreamUrls(id)));
+    const urls = await data.map((item, i) => {
+      const url = item.data?.data[0]?.attributes?.url || null;
+      return { id: ids[i], url };
+    });
+
+    dispatch({ type: SET_STREAM_URLS, payload: urls });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const setAnimeError = () => dispatch => {
+  dispatch({ type: SET_ANIME_ERROR, payload: ERRORS.anime });
+  setTimeout(() => dispatch({ type: SET_ANIME_ERROR, payload: null }), 3000);
 };
 
 // initial state
@@ -62,6 +82,11 @@ const animeReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         streamUrls: payload,
+      };
+    case SET_ANIME_ERROR:
+      return {
+        ...state,
+        error: payload,
       };
     case CLEAR_ANIME_DATA:
       return INITIAL_STATE;

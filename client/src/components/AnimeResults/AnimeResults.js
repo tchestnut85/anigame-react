@@ -4,80 +4,41 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ReviewStars } from '../ReviewStars/ReviewStars';
 
-import {
-  CLEAR_ERROR,
-  CLEAR_STREAM_URL_DATA,
-  SET_ERROR,
-  SET_STREAM_URL,
-} from '../../utils/context/searchActions';
 import { capitalizeWords, replaceSpaces } from '../../utils/helpers';
-import { getAnimeStreamUrl } from '../../utils/API';
-import { modalProps } from '../../constants/modalValues';
 import { options } from '../../constants/detailsOptions';
 import { reviewTypes } from '../../utils/renderScore';
-import { setDetails } from '../../utils/context/searchActions';
-import { useSearchContext } from '../../utils/context/SearchState';
+import {
+  getAnimeData,
+  getAnimeStreamUrls,
+  setAnimeError,
+} from '../../redux/anime';
 
-import { clearStreamData, getAnimeData } from '../../redux/anime';
+import { setDetails } from '../../utils/context/searchActions';
 
 export const AnimeResults = () => {
   const dispatch = useDispatch();
   const query = useSelector(state => state.query);
   const { games } = useSelector(state => state.game);
-  const { animeTitles } = useSelector(state => state.anime);
-
-  const [state, reactDispatch] = useSearchContext();
-  const { animeLoading, animeStreamUrls } = state;
-
-  // TODO - set the error in anime redux if no anime found for the search
-  const { anime: animeError } = modalProps;
-  const displayError = () => {
-    reactDispatch({
-      type: SET_ERROR,
-      payload: animeError,
-    });
-    setTimeout(() => {
-      reactDispatch({ type: CLEAR_ERROR });
-    }, 3000);
-  };
+  const { animeTitles, streamUrls, loading } = useSelector(
+    state => state.anime
+  );
 
   // search for the anime based on the query, fetching from the Kitsu API
   const animeSearch = async () => {
-    reactDispatch({ type: CLEAR_STREAM_URL_DATA });
-    dispatch(clearStreamData);
-
     try {
       dispatch(getAnimeData(query));
 
-      const isError = !!animeTitles.length;
-      if (isError) {
-        displayError();
-      }
+      // TODO - this is rendering the alert modal whether or not animeTitles are found, need to fix
+      if (!animeTitles.length) dispatch(setAnimeError());
     } catch (err) {
       console.error(err);
     }
   };
 
   // search for each anime's streaming service URL using its ID
-  const streamUrlSearch = async animeId => {
+  const searchForStreamUrl = async animeId => {
     try {
-      const streamUrlResponse = await getAnimeStreamUrl(animeId);
-
-      if (!streamUrlResponse.ok) {
-        throw Error(
-          `There was an error: ${streamUrlResponse.statusText} (${streamUrlResponse.status})`
-        );
-      }
-
-      const streamUrl = await streamUrlResponse.json();
-
-      reactDispatch({
-        type: SET_STREAM_URL,
-        payload: {
-          id: animeId,
-          url: streamUrl?.data[0]?.attributes?.url,
-        },
-      });
+      dispatch(getAnimeStreamUrls(animeId));
     } catch (err) {
       console.error(err);
     }
@@ -85,23 +46,19 @@ export const AnimeResults = () => {
 
   // run the animeSearch function when games is populated/exists after initial game search
   useEffect(() => {
-    if (games.length) {
-      animeSearch();
-    }
+    if (games.length) animeSearch();
     //eslint-disable-next-line
   }, [games]);
 
-  // run the streamUrlSearch when the anime search is done and animeLoading changes (state.animeLoading === false)
+  // run the searchForStreamUrl when the anime search is done and loading changes
   useEffect(() => {
-    animeTitles.forEach(anime => {
-      streamUrlSearch(anime.id);
-    });
+    searchForStreamUrl(animeTitles.map(title => title.id));
     //eslint-disable-next-line
-  }, [animeLoading]);
+  }, [loading]);
 
   // function to get the matching stream url for the anime by ID
   const findStreamUrl = animeId => {
-    const foundUrl = animeStreamUrls.find(url => url.id === animeId);
+    const foundUrl = streamUrls?.find(url => url.id === animeId);
     return foundUrl?.url;
   };
 
@@ -134,6 +91,7 @@ export const AnimeResults = () => {
                       to={`/anigame-react/${replaceSpaces(
                         anime.attributes.canonicalTitle
                       )}`}
+                      // TODO - convert this to redux
                       onClick={() => setDetails(options.anime, anime, dispatch)}
                     >
                       <h3

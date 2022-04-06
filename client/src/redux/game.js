@@ -1,6 +1,6 @@
 import { fetchGameData, fetchGameScore } from '../api/gameRequests';
 
-import { OK_STATUS } from '../constants';
+import { STATUSES } from '../constants/api';
 
 // action types
 const SET_GAME_DATA = 'SET_GAME_DATA';
@@ -23,7 +23,7 @@ export const getGameData = title => async dispatch => {
       statusText,
     } = await fetchGameData(title);
 
-    if (statusText !== OK_STATUS) {
+    if (statusText !== STATUSES.OK) {
       throw Error(`There was an error: ${statusText} (${status})`);
     }
 
@@ -43,7 +43,7 @@ export const getGameScore = title => async dispatch => {
       statusText,
     } = await fetchGameScore(title);
 
-    if (statusText !== OK_STATUS) {
+    if (statusText !== STATUSES.OK) {
       throw Error(`There was an error: ${statusText} (${status})`);
     }
 

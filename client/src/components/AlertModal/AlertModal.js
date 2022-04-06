@@ -1,12 +1,6 @@
 import React from 'react';
 
-export const AlertModal = ({
-  type,
-  icon,
-  message,
-  subMessage = '',
-  closeModal,
-}) => {
+export const AlertModal = ({ type, icon, message, subMessage = '' }) => {
   return (
     <div
       id={type}
@@ -20,7 +14,6 @@ export const AlertModal = ({
             id={`${type}-btn`}
             className="delete"
             aria-label="close"
-            onClick={closeModal}
           ></button>
         </header>
         <i

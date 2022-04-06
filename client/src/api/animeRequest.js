@@ -16,7 +16,7 @@ export const fetchAnimeData = title => {
   });
 };
 
-export const fetchAnimeStreamUrl = id => {
+export const fetchAnimeStreamUrls = id => {
   return animeRequest({
     url: `/anime/${id}/streaming-links`,
   });

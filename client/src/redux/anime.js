@@ -10,6 +10,8 @@ const CLEAR_ANIME_DATA = 'CLEAR_ANIME_DATA';
 const SET_STREAM_URLS = 'SET_STREAM_URLS';
 const CLEAR_STREAM_URL_DATA = 'CLEAR_STREAM_URL_DATA';
 
+const SET_ANIME_DETAIL_ID = 'SET_ANIME_DETAIL_ID';
+
 const SET_ANIME_LOADING = 'SET_ANIME_LOADING';
 
 const SET_ANIME_ERROR = 'SET_ANIME_ERROR';
@@ -53,6 +55,10 @@ export const getAnimeStreamUrls = ids => async dispatch => {
   }
 };
 
+export const setAnimeDetails = id => dispatch => {
+  dispatch({ type: SET_ANIME_DETAIL_ID, payload: id });
+};
+
 export const setAnimeError = () => dispatch => {
   dispatch({ type: SET_ANIME_ERROR, payload: ERRORS.anime });
   setTimeout(() => dispatch({ type: SET_ANIME_ERROR, payload: null }), 3000);
@@ -62,6 +68,7 @@ export const setAnimeError = () => dispatch => {
 const INITIAL_STATE = {
   animeTitles: [],
   streamUrls: [],
+  detailId: null,
   loading: false,
 };
 
@@ -82,6 +89,11 @@ const animeReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         streamUrls: payload,
+      };
+    case SET_ANIME_DETAIL_ID:
+      return {
+        ...state,
+        detailId: payload,
       };
     case SET_ANIME_ERROR:
       return {

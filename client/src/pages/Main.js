@@ -13,7 +13,7 @@ export const Main = () => {
 
   return (
     <main className="main-content">
-      <ConsoleButtons />
+      {/* <ConsoleButtons /> */}
       {isLoading && <Loader />}
       <section className="section">
         <div>

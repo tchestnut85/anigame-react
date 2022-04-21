@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReviewStars } from '../ReviewStars/ReviewStars';
 
 import { capitalizeWords, replaceSpaces } from '../../utils/helpers';
-import { options } from '../../constants/detailsOptions';
 import { reviewTypes } from '../../utils/renderScore';
 import {
   getAnimeData,
@@ -13,7 +12,7 @@ import {
   setAnimeError,
 } from '../../redux/anime';
 
-import { setDetails } from '../../utils/context/searchActions';
+import { setAnimeDetails } from '../../redux/anime';
 
 export const AnimeResults = () => {
   const dispatch = useDispatch();
@@ -67,6 +66,10 @@ export const AnimeResults = () => {
     return findStreamUrl(animeId) ? true : false;
   };
 
+  const handleSetAnimeDetails = id => {
+    dispatch(setAnimeDetails(id));
+  };
+
   return (
     <>
       {animeTitles.length ? (
@@ -91,8 +94,7 @@ export const AnimeResults = () => {
                       to={`/anigame-react/${replaceSpaces(
                         anime.attributes.canonicalTitle
                       )}`}
-                      // TODO - convert this to redux
-                      onClick={() => setDetails(options.anime, anime, dispatch)}
+                      onClick={() => handleSetAnimeDetails(anime.id)}
                     >
                       <h3
                         className="title has-text-centered is-size-3"

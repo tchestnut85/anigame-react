@@ -64,6 +64,10 @@ export const clearGameData = () => dispatch => {
   dispatch({ type: CLEAR_GAME_DATA });
 };
 
+export const clearGameDetailId = () => dispatch => {
+  dispatch({ type: CLEAR_GAME_DETAILS });
+};
+
 // initial state
 const INITIAL_STATE = {
   games: [],

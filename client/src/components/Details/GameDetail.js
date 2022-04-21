@@ -5,21 +5,22 @@ import { useSelector } from 'react-redux';
 import { getYear } from '../../utils/helpers';
 import styles from './Detail.module.css';
 
-export const Detail = () => {
+export const GameDetail = () => {
   const history = useHistory();
 
-  const detailId = useSelector(state => state?.game.detailId);
+  const gameDetailId = useSelector(state => state?.game.detailId);
+  const animeDetailId = useSelector(state => state?.anime.detailId);
   const game = useSelector(state =>
-    state.game.games.find(game => game.id === detailId)
+    state.game.games.find(game => game.id === gameDetailId)
   );
 
-  if (!detailId) {
+  if (!gameDetailId && animeDetailId === null) {
     history.push('/anigame-react');
   }
 
   return (
     <>
-      {!!detailId && (
+      {!!gameDetailId && (
         <div className={`${styles.details} columns column is-10`}>
           <div id="detail-img" className="column is-one-third">
             <img src={game?.image?.original} alt={game?.name} />

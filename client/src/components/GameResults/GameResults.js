@@ -13,7 +13,7 @@ import styles from './GameResults.module.css';
 
 export const GameResults = () => {
   const dispatch = useDispatch();
-  const query = useSelector(state => state.query); // TODO - move this selector to redux file
+  const query = useSelector(state => state.query);
   const { games, score } = useSelector(state => state.game);
 
   const handleSetGameDetails = id => {

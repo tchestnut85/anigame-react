@@ -34,6 +34,9 @@ export const getAnimeData = title => async dispatch => {
     }
 
     const matchedAnime = getAnimeMatches(animeData, title);
+
+    if (!matchedAnime.length) dispatch(setAnimeError());
+
     dispatch({ type: SET_ANIME_DATA, payload: matchedAnime });
   } catch (err) {
     console.error(err);
@@ -64,9 +67,13 @@ export const clearAnimeDetails = () => dispatch => {
   dispatch({ type: CLEAR_ANIME_DETAILS });
 };
 
+export const clearAnimeError = () => dispatch => {
+  dispatch({ type: SET_ANIME_ERROR, payload: null });
+};
+
 export const setAnimeError = () => dispatch => {
   dispatch({ type: SET_ANIME_ERROR, payload: ERRORS.anime });
-  setTimeout(() => dispatch({ type: SET_ANIME_ERROR, payload: null }), 3000);
+  setTimeout(() => dispatch(clearAnimeError()), 3000);
 };
 
 // initial state

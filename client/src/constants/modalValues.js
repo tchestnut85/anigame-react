@@ -1,5 +1,6 @@
 export const ERRORS = {
   anime: {
+    id: 'anime',
     type: 'anime-alert',
     icon: 'fas fa-sad-cry',
     message: 'No Anime found for that game...',

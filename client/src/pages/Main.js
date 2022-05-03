@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AlertModal } from '../components/AlertModal/AlertModal';
 import { AnimeResults } from '../components/AnimeResults/AnimeResults';
-import { ConsoleButtons } from '../components/ConsoleButtons/ConsoleButtons';
+// import { ConsoleButtons } from '../components/ConsoleButtons/ConsoleButtons';
 import { GameResults } from '../components/GameResults/GameResults';
 import { Loader } from '../components/Loader/Loader';
 
 import { clearGameDetailId } from '../redux/game';
-import { clearAnimeDetails } from '../redux/anime';
+import { clearAnimeDetails, clearAnimeError } from '../redux/anime';
 
 export const Main = () => {
   const { isLoading } = useSelector(state => state.game);
@@ -23,7 +23,7 @@ export const Main = () => {
 
   return (
     <main className="main-content">
-      {/* <ConsoleButtons /> */}
+      {/* <ConsoleButtons /> TODO - re-enable later */}
       {isLoading && <Loader />}
       <section className="section">
         <div>
@@ -35,6 +35,7 @@ export const Main = () => {
               icon={error.icon}
               message={error.message}
               subMessage={error.subMessage}
+              onClose={() => dispatch(clearAnimeError())}
             />
           ) : null}
         </div>

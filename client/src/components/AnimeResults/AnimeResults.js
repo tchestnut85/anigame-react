@@ -6,11 +6,7 @@ import { ReviewStars } from '../ReviewStars/ReviewStars';
 
 import { capitalizeWords, replaceSpaces } from '../../utils/helpers';
 import { reviewTypes } from '../../utils/renderScore';
-import {
-  getAnimeData,
-  getAnimeStreamUrls,
-  setAnimeError,
-} from '../../redux/anime';
+import { getAnimeData, getAnimeStreamUrls } from '../../redux/anime';
 
 import { setAnimeDetails } from '../../redux/anime';
 
@@ -26,9 +22,6 @@ export const AnimeResults = () => {
   const animeSearch = async () => {
     try {
       dispatch(getAnimeData(query));
-
-      // TODO - this is rendering the alert modal whether or not animeTitles are found, need to fix
-      if (!animeTitles.length) dispatch(setAnimeError());
     } catch (err) {
       console.error(err);
     }
@@ -46,14 +39,12 @@ export const AnimeResults = () => {
   // run the animeSearch function when games is populated/exists after initial game search
   useEffect(() => {
     if (games.length) animeSearch();
-    //eslint-disable-next-line
-  }, [games]);
+  }, [games]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // run the searchForStreamUrl when the anime search is done and loading changes
   useEffect(() => {
     searchForStreamUrl(animeTitles.map(title => title.id));
-    //eslint-disable-next-line
-  }, [loading]);
+  }, [loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // function to get the matching stream url for the anime by ID
   const findStreamUrl = animeId => {

@@ -1,38 +1,45 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { AlertModal } from '../components/AlertModal/AlertModal';
 import { AnimeResults } from '../components/AnimeResults/AnimeResults';
-import { CLEAR_ERROR } from '../utils/context/searchActions';
-import { ConsoleButtons } from '../components/ConsoleButtons/ConsoleButtons';
+// import { ConsoleButtons } from '../components/ConsoleButtons/ConsoleButtons';
 import { GameResults } from '../components/GameResults/GameResults';
 import { Loader } from '../components/Loader/Loader';
-import React from 'react';
-import { useSearchContext } from '../utils/context/SearchState';
+
+import { clearGameDetailId } from '../redux/game';
+import { clearAnimeDetails, clearAnimeError } from '../redux/anime';
 
 export const Main = () => {
-	const [{ error, gameLoading }, dispatch] = useSearchContext();
+  const { isLoading } = useSelector(state => state.game);
+  const { error } = useSelector(state => state.anime);
+  const dispatch = useDispatch();
 
-	const closeModal = () => {
-		dispatch({ type: CLEAR_ERROR });
-	};
+  // clear/reset the detailIds on component mount in case of navigating from single detail view to results list
+  useEffect(() => {
+    dispatch(clearGameDetailId());
+    dispatch(clearAnimeDetails());
+  }, [dispatch]);
 
-	return (
-		<div className='main-content'>
-			<ConsoleButtons />
-			{gameLoading && <Loader />}
-			<section className='section'>
-				<div>
-					<GameResults />
-					<AnimeResults />
-					{error ? (
-						<AlertModal
-							closeModal={closeModal}
-							type={error.type}
-							icon={error.icon}
-							message={error.message}
-							subMessage={error.subMessage}
-						/>
-					) : null}
-				</div>
-			</section>
-		</div>
-	);
+  return (
+    <main className="main-content">
+      {/* <ConsoleButtons /> TODO - re-enable later */}
+      {isLoading && <Loader />}
+      <section className="section">
+        <div>
+          <GameResults />
+          <AnimeResults />
+          {error ? (
+            <AlertModal
+              type={error.type}
+              icon={error.icon}
+              message={error.message}
+              subMessage={error.subMessage}
+              onClose={() => dispatch(clearAnimeError())}
+            />
+          ) : null}
+        </div>
+      </section>
+    </main>
+  );
 };

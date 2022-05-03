@@ -1,4 +1,4 @@
 export const options = {
-	game: 'game',
-	anime: 'anime',
+  game: 'game',
+  anime: 'anime',
 };

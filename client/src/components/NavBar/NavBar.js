@@ -4,27 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ItemButton } from '../ItemButton/ItemButton';
 import { Search } from '../Search/Search';
 
-import { clearSearches } from '../../utils/localStorage';
-import { useSearchContext } from '../../utils/context/SearchState';
 import { setQuery } from '../../redux/query';
 import { getGameData, getGameScore, clearGameData } from '../../redux/game';
-import { CLEAR_STORAGE } from '../../utils/context/searchActions';
+import { clearSearches } from '../../redux/savedSearches';
 
 export const NavBar = () => {
   const dispatch = useDispatch();
   const query = useSelector(state => state.query);
+  const savedSearches = useSelector(state => state.savedSearches);
 
-  const [{ savedSearches }, contextDispatch] = useSearchContext();
+  const handleClear = () => dispatch(clearSearches());
 
-  const handleClear = () => {
-    contextDispatch({ type: CLEAR_STORAGE }); // TODO - convert this to redux
-    clearSearches();
-  };
-
-  const handleClearData = () => {
-    dispatch(clearGameData());
-    // TODO - add claerAnimeData later
-  };
+  const handleClearData = () => dispatch(clearGameData());
 
   const handleSearch = async e => {
     e.preventDefault();

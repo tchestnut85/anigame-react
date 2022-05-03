@@ -12,17 +12,15 @@ const getSavedSearches = () => {
 const saveSearch = (storageState, searchTerm) => {
   const savedSearches = getSavedSearches();
 
-  if (savedSearches.includes(searchTerm)) {
-    return;
-  }
+  const searchesArr = savedSearches.includes(searchTerm)
+    ? [...storageState]
+    : [searchTerm, ...storageState];
 
-  savedSearches.length
-    ? setItem([searchTerm, ...storageState])
-    : setItem([searchTerm]);
+  savedSearches.length ? setItem(searchesArr) : setItem(searchesArr);
 };
 
 const clearSearches = () => {
   localStorage.removeItem(LS_KEY);
 };
 
-export { setItem, getSavedSearches, saveSearch, clearSearches };
+export { getSavedSearches, saveSearch, clearSearches };

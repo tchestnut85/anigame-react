@@ -3,30 +3,30 @@
 
 .results {
   font-size: 3rem;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: $font-primary;
   color: $off-white;
   text-align: center;
   padding-bottom: 5px;
 }
 
-.searchResults h3 {
-  font-family: 'VT323', monospace;
-  color: $playstation-blue;
-  text-decoration: underline;
-  font-size: 32px;
-}
-
-.searchResults p {
-  font-family: 'Share Tech Mono', monospace;
-}
-
 .searchResults {
   @include defaultBackground($hasPointer: true);
-}
 
-.searchResults:hover {
-  box-shadow: 0 0 10px $off-white;
-  border: 1px solid $off-white;
+  &:hover {
+    box-shadow: 0 0 10px $off-white;
+    border: 1px solid $off-white;
+  }
+
+  h3 {
+    font-family: $font-secondary;
+    color: $playstation-blue;
+    text-decoration: underline;
+    font-size: 32px;
+  }
+
+  p {
+    font-family: $font-primary;
+  }
 }
 
 .image {

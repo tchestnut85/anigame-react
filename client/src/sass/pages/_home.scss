@@ -17,7 +17,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: $font-primary;
   color: $off-white;
 }
 
@@ -27,7 +27,7 @@ h4 {
 }
 
 #console-wars {
-  font-family: 'VT323', monospace;
+  font-family: $font-secondary;
   font-weight: bolder;
   font-size: 3rem;
   color: $off-white;
@@ -39,7 +39,7 @@ h4 {
 
 #anime-results {
   font-size: 3rem;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: $font-primary;
   color: $off-white;
   text-align: center;
   padding-bottom: 5px;

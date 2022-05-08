@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 
 import { getYear } from '../../utils/helpers';
-import styles from './Detail.module.css';
+import styles from './Detail.module.scss';
 
 export const GameDetail = () => {
   const history = useHistory();

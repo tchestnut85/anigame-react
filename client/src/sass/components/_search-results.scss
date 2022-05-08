@@ -1,0 +1,67 @@
+@import '../../sass/mixins';
+
+/*Search Results Game*/
+.image {
+  height: 15rem;
+  width: 15rem;
+}
+
+.anime-results-link-div {
+  font-size: 1.25rem;
+}
+
+#anime-results {
+  margin-top: 10vh;
+}
+
+.search-results h3 {
+  font-family: 'VT323', monospace;
+  color: $playstationBlue;
+  text-decoration: underline;
+  font-size: 32px;
+}
+
+.search-results p {
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.search-results {
+  @include defaultBackground($hasPointer: true);
+}
+
+.search-results:hover {
+  box-shadow: 0 0 10px $offWhite;
+  border: 1px solid $offWhite;
+}
+
+/*Search Results Anime*/
+
+.search-results-anime h3 {
+  font-family: 'VT323', monospace;
+  font-weight: normal;
+  color: $playstationBlue;
+  text-decoration: underline;
+  font-size: 32px;
+  padding-bottom: 5px;
+}
+
+.search-results-anime p {
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.anime-rating-stream-div {
+  padding-top: 5px;
+}
+
+.anime-stream {
+  text-align: left;
+}
+
+.search-results-anime {
+  @include defaultBackground($hasPointer: false);
+}
+
+.search-results-anime:hover {
+  box-shadow: 0 0 10px $offWhite;
+  border: 1px solid $offWhite;
+}

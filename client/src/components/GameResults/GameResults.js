@@ -9,7 +9,7 @@ import { reviewTypes } from '../../utils/renderScore';
 import { capitalizeWords, formatDate } from '../../utils/helpers';
 import { setGameDetails } from '../../redux/game';
 
-import styles from './GameResults.module.css';
+import styles from './GameResults.module.scss';
 
 export const GameResults = () => {
   const dispatch = useDispatch();

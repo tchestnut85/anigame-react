@@ -1,16 +1,17 @@
-@import '../../styles/colors.css';
+@import '../../sass/variables';
+@import '../../sass/mixins';
 
 .results {
   font-size: 3rem;
   font-family: 'Share Tech Mono', monospace;
-  color: var(--offWhite);
+  color: $offWhite;
   text-align: center;
   padding-bottom: 5px;
 }
 
 .searchResults h3 {
   font-family: 'VT323', monospace;
-  color: var(--playstationBlue);
+  color: $playstationBlue;
   text-decoration: underline;
   font-size: 32px;
 }
@@ -20,16 +21,12 @@
 }
 
 .searchResults {
-  background-color: var(--backgroundLight);
-  border: 1px solid var(--offBlack);
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 0 0 4px var(--backgroundDark);
+  @include defaultBackground($hasPointer: true);
 }
 
 .searchResults:hover {
-  box-shadow: 0 0 10px var(--offWhite);
-  border: 1px solid var(--offWhite);
+  box-shadow: 0 0 10px $offWhite;
+  border: 1px solid $offWhite;
 }
 
 .image {

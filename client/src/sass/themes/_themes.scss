@@ -1,0 +1,94 @@
+/* Playstation Theme */
+
+.playstation-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.playstation-button:hover {
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 5px 15px $playstationBlue;
+}
+
+/*
+.playstation-theme .search-results{
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 5px 15px $playstationBlue;
+} 
+
+.playstation-theme .search-results-anime{
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 5px 15px $playstationBlue;
+} 
+*/
+
+/* ------------------------------------------ */
+
+/* Xbox Theme */
+.xbox-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.xbox-button:hover {
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 5px 15px $xBoxGreen;
+}
+
+/*
+.xbox-theme .search-results{
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 5px 15px $xBoxGreen;
+} 
+
+.xbox-theme .search-results-anime{
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 5px 15px $xBoxGreen;
+} 
+*/
+
+/* ------------------------------------------ */
+
+/* Steam Theme AKA Dark Mode*/
+.steam-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.steam-button:hover {
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 5px 15px $steamLight;
+}
+
+/*
+.steam-theme .search-results{
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 5px 15px $steamLight;
+} 
+
+.steam-theme .search-results-anime {
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 5px 15px $steamLight;
+} 
+*/
+
+/* ------------------------------------------ */
+
+/* Nintendo Theme */
+.nintendo-switch-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.nintendo-switch-button:hover {
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 5px 15px $nintendoRed;
+}
+
+/*
+.nintendo-theme .search-results{
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 5px 15px $nintendoRed;
+} 
+
+.nintendo-theme .search-results-anime {
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 5px 15px $nintendoRed;
+} 
+*/

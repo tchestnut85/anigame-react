@@ -1,3 +1,6 @@
+@import '../../sass/variables';
+@import '../../sass/mixins';
+
 .title {
   font-family: 'VT323', monospace;
   color: #363636;
@@ -13,10 +16,7 @@
 }
 
 .details {
-  background-color: #c5c7d4;
-  border: 1px solid var(--offBlack);
-  border-radius: 4px;
-  box-shadow: 0 0 4px rgb(0, 0, 0);
+  @include defaultBackground($hasPointer: false);
 }
 
 .animeImage {

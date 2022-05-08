@@ -1,4 +1,4 @@
-@import './colors.css';
+@import './sass/variables';
 
 .container {
   display: flex;
@@ -8,5 +8,5 @@
 }
 
 .btn {
-  background-color: var(--steamLight) !important;
+  background-color: $steamLight !important;
 }

@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: $backgroundDark;
+}
+
+h1 {
+  font-family: 'Press Start 2P', cursive;
+  color: $offWhite;
+}
+
+.app-description {
+  text-align: left;
+}
+
+h2 {
+  font-family: 'Share Tech Mono', monospace;
+  color: $offWhite;
+}
+
+h4 {
+  font-family: 'Press Start 2P', cursive;
+  vertical-align: top;
+}
+
+#console-wars {
+  font-family: 'VT323', monospace;
+  font-weight: bolder;
+  font-size: 3rem;
+  color: $offWhite;
+}
+
+.project-title {
+  padding: 3rem;
+}
+
+#anime-results {
+  font-size: 3rem;
+  font-family: 'Share Tech Mono', monospace;
+  color: $offWhite;
+  text-align: center;
+  padding-bottom: 5px;
+}

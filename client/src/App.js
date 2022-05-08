@@ -9,8 +9,8 @@ import { NavBar } from './components/NavBar/NavBar';
 
 import store from './redux/store';
 
-import './styles/index.css';
-import styles from './styles/App.module.css';
+import './sass/index.scss';
+import styles from './App.module.scss';
 
 function App() {
   return (

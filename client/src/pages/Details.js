@@ -8,7 +8,7 @@ import { AnimeDetail } from '../components/Details/AnimeDetail';
 import { clearGameDetailId } from '../redux/game';
 import { clearAnimeDetails } from '../redux/anime';
 
-import styles from '../styles/App.module.css';
+import styles from '../App.module.scss';
 
 export const Details = () => {
   const dispatch = useDispatch();

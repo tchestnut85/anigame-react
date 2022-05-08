@@ -1,0 +1,10 @@
+@mixin defaultBackground($hasPointer) {
+  background-color: $backgroundLight;
+  border: 1px solid $offBlack;
+  border-radius: 4px;
+  box-shadow: 0 0 4px $backgroundDark;
+
+  @if hasPointer == true {
+    cursor: pointer;
+  }
+}

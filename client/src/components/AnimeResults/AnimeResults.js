@@ -10,6 +10,8 @@ import { getAnimeData, getAnimeStreamUrls } from '../../redux/anime';
 
 import { setAnimeDetails } from '../../redux/anime';
 
+import styles from './AnimeResults.module.scss';
+
 export const AnimeResults = () => {
   const dispatch = useDispatch();
   const query = useSelector(state => state.query);
@@ -65,7 +67,9 @@ export const AnimeResults = () => {
     <>
       {animeTitles.length ? (
         <div id="anime-container">
-          <p id="anime-results">Anime found for {capitalizeWords(query)}:</p>
+          <p className={styles.heading}>
+            Anime found for {capitalizeWords(query)}:
+          </p>
           <div
             id="results-container"
             className="columns is-multiline is-centered is-vcentered is-2 mt-4"
@@ -75,7 +79,7 @@ export const AnimeResults = () => {
                 <div
                   key={`anime-result-${anime.id}`}
                   id={`${anime.attributes.canonicalTitle}-container`}
-                  className="column anime-class anime-content search-results-anime is-two-fifths has-text-centered mx-3 my-4"
+                  className={`column is-two-fifths has-text-centered mx-3 my-4 ${styles.results}`}
                 >
                   <div
                     className="container has-text-centered is-size-5"
@@ -108,7 +112,9 @@ export const AnimeResults = () => {
                       id={`${anime.attributes.canonicalTitle}-video`}
                     ></iframe>
                   </div>
-                  <div className="anime-rating-stream-div columns is-vcentered container has-text-centered">
+                  <div
+                    className={`${styles.streamContainer} columns is-vcentered container has-text-centered`}
+                  >
                     <span
                       id={`${anime.attributes.canonicalTitle}-rating`}
                       className="column container has-text-right is-size-4"
@@ -119,11 +125,8 @@ export const AnimeResults = () => {
                       />
                     </span>
 
-                    {hasStreamUrl(anime.id) ? (
-                      <div
-                        id={`anime-stream-${anime.id}`}
-                        className="anime-stream column is-size-5 anime-stream-style"
-                      >
+                    <div className={`${styles.streamUrl} column is-size-5`}>
+                      {hasStreamUrl(anime.id) ? (
                         <a
                           href={findStreamUrl(anime.id)}
                           target="_blank"
@@ -132,21 +135,13 @@ export const AnimeResults = () => {
                           Watch {anime.attributes.canonicalTitle} the Animation
                           here!
                         </a>
-                      </div>
-                    ) : (
-                      <div className="anime-stream column is-size-5 anime-stream-style">
-                        Sorry, no streaming info is available for this title.
-                      </div>
-                    )}
+                      ) : (
+                        <>
+                          Sorry, no streaming info is available for this title.
+                        </>
+                      )}
+                    </div>
                   </div>
-                  <p
-                    id="anime-description"
-                    className="container has-text-left is-size-6"
-                  >
-                    {/* TODO - make a seperate description component using react-router for this... or maybe a modal 
-											{anime.attributes.description} 
-										*/}
-                  </p>
                 </div>
               );
             })}

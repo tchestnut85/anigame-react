@@ -1,0 +1,41 @@
+@import '../../sass/variables';
+@import '../../sass/mixins';
+
+.heading {
+  margin-top: 10vh;
+  font-size: 3rem;
+  font-family: $font-primary;
+  color: $off-white;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.results {
+  @include defaultBackground($hasPointer: false);
+
+  h3 {
+    font-family: $font-secondary;
+    font-weight: normal;
+    color: $playstation-blue;
+    text-decoration: underline;
+    font-size: 32px;
+    padding-bottom: 5px;
+  }
+
+  p {
+    font-family: $font-primary;
+  }
+
+  &:hover {
+    box-shadow: 0 0 10px $off-white;
+    border: 1px solid $off-white;
+  }
+}
+
+.streamContainer {
+  padding-top: 5px;
+}
+
+.streamUrl {
+  text-align: left;
+}

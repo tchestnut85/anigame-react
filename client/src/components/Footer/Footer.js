@@ -1,18 +1,19 @@
 import React from 'react';
 import bulmaImg from '../../assets/images/made-with-bulma.png';
 
+import styles from './Footer.module.scss';
+
 export const Footer = () => {
   return (
     <footer
-      id="footer"
-      className="app-footer columns pl-5 pr-5 pt-5 pb-4 has-background-grey-lighter"
+      className={`app-footer columns pl-5 pr-5 pt-5 pb-4 has-background-grey-lighter ${styles.container}`}
     >
       <div className="column is-4">
         <div className="footer-info container columns mb-0 has-text-centered">
           <i className="column is-2 fas fa-gamepad fa-3x"></i>
           <h4 className="column has-text-left pl-5">AniGame</h4>
         </div>
-        <div id="developers" className="devs columns">
+        <div className="devs columns">
           <p className="pl-4 is-size-7">
             Developed by{' '}
             <a href="https://tomchestnut.dev" target="_blank" rel="noreferrer">
@@ -36,7 +37,7 @@ export const Footer = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <i id="githubIcon" className="fab fa-github-square fa-4x"></i>
+          <i className={`fab fa-github-square fa-4x ${styles.githubIcon}`}></i>
         </a>
       </div>
       <div className="ml-0 column is-2 has-text-centered">

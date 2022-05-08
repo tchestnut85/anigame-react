@@ -5,6 +5,8 @@ import { setQuery } from '../../redux/query';
 import { getGameData, getGameScore, clearGameData } from '../../redux/game';
 import { getSavedSearches, saveSearch } from '../../redux/savedSearches';
 
+import styles from '../NavBar/NavBar.module.scss';
+
 export const Search = () => {
   // search bar form state
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,7 +42,7 @@ export const Search = () => {
     <form id="search-form" className="field is-grouped" onSubmit={handleSubmit}>
       <input
         id="search-bar"
-        className="searchbar-style input is-rounded"
+        className={`${styles.searchbar} input is-rounded`}
         type="text"
         name="search-term"
         placeholder="Game Title"

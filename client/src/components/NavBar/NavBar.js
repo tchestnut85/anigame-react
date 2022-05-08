@@ -8,6 +8,8 @@ import { setQuery } from '../../redux/query';
 import { getGameData, getGameScore, clearGameData } from '../../redux/game';
 import { clearSearches } from '../../redux/savedSearches';
 
+import styles from './NavBar.module.scss';
+
 export const NavBar = () => {
   const dispatch = useDispatch();
   const query = useSelector(state => state.query);
@@ -36,7 +38,7 @@ export const NavBar = () => {
   return (
     <nav
       id="search-display"
-      className="nav-style navbar has-background-dark is-vcentered is-fixed-top"
+      className={`${styles.container} navbar has-background-dark is-vcentered is-fixed-top`}
       role="navigation"
       aria-label="main navigation"
     >

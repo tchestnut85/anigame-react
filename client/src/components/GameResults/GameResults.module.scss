@@ -4,14 +4,14 @@
 .results {
   font-size: 3rem;
   font-family: 'Share Tech Mono', monospace;
-  color: $offWhite;
+  color: $off-white;
   text-align: center;
   padding-bottom: 5px;
 }
 
 .searchResults h3 {
   font-family: 'VT323', monospace;
-  color: $playstationBlue;
+  color: $playstation-blue;
   text-decoration: underline;
   font-size: 32px;
 }
@@ -25,8 +25,8 @@
 }
 
 .searchResults:hover {
-  box-shadow: 0 0 10px $offWhite;
-  border: 1px solid $offWhite;
+  box-shadow: 0 0 10px $off-white;
+  border: 1px solid $off-white;
 }
 
 .image {

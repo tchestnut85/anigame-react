@@ -16,7 +16,7 @@
 
 .search-results h3 {
   font-family: 'VT323', monospace;
-  color: $playstationBlue;
+  color: $playstation-blue;
   text-decoration: underline;
   font-size: 32px;
 }
@@ -30,8 +30,8 @@
 }
 
 .search-results:hover {
-  box-shadow: 0 0 10px $offWhite;
-  border: 1px solid $offWhite;
+  box-shadow: 0 0 10px $off-white;
+  border: 1px solid $off-white;
 }
 
 /*Search Results Anime*/
@@ -39,7 +39,7 @@
 .search-results-anime h3 {
   font-family: 'VT323', monospace;
   font-weight: normal;
-  color: $playstationBlue;
+  color: $playstation-blue;
   text-decoration: underline;
   font-size: 32px;
   padding-bottom: 5px;
@@ -62,6 +62,6 @@
 }
 
 .search-results-anime:hover {
-  box-shadow: 0 0 10px $offWhite;
-  border: 1px solid $offWhite;
+  box-shadow: 0 0 10px $off-white;
+  border: 1px solid $off-white;
 }

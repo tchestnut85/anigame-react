@@ -1,0 +1,19 @@
+@import '../../sass/variables';
+
+h1 {
+  font-family: 'Press Start 2P', cursive;
+  color: $off-white;
+}
+
+h2 {
+  font-family: $font-primary;
+  color: $off-white;
+}
+
+.container {
+  padding: 3rem;
+}
+
+.description {
+  text-align: left;
+}

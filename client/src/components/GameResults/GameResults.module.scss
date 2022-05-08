@@ -24,6 +24,10 @@
     font-size: 32px;
   }
 
+  h4 {
+    @include defaultH4;
+  }
+
   p {
     font-family: $font-primary;
   }

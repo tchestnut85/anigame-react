@@ -15,18 +15,17 @@ export const AnimeDetail = () => {
   );
 
   const {
-    attributes: {
-      canonicalTitle,
-      coverImage,
-      posterImage,
-      createdAt,
-      ageRating,
-      description,
-    },
-  } = anime;
+    canonicalTitle,
+    coverImage,
+    posterImage,
+    createdAt,
+    ageRating,
+    description,
+  } = anime?.attributes || {};
 
-  if (!animeDetailId && gameDetailId === null) {
+  if (!animeDetailId && !gameDetailId) {
     history.push('/anigame-react');
+    return null;
   }
 
   return (

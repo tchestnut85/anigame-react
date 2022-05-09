@@ -1,10 +1,5 @@
 @import '../../sass/variables';
 
-h1 {
-  font-family: 'Press Start 2P', cursive;
-  color: $off-white;
-}
-
 h2 {
   font-family: $font-primary;
   color: $off-white;
@@ -14,6 +9,35 @@ h2 {
   padding: 3rem;
 }
 
+.title {
+  font-family: 'Press Start 2P', cursive;
+  color: $off-white;
+}
+
 .description {
   text-align: left;
+}
+
+/* Tablet Size */
+@media screen and (max-width: 768px) {
+  .container {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .description {
+    text-align: center;
+  }
+}
+
+/* Small Mobile Size */
+@media screen and (max-width: 320px) {
+  .title {
+    font-size: 25px !important;
+  }
+
+  .description {
+    font-size: 18px !important;
+  }
 }

@@ -9,11 +9,13 @@ export const Footer = () => {
       className={`app-footer columns pl-5 pr-5 pt-5 pb-4 has-background-grey-lighter ${styles.container}`}
     >
       <div className="column is-4">
-        <div className="footer-info container columns mb-0 has-text-centered">
+        <div
+          className={`${styles.title} container columns mb-0 has-text-centered`}
+        >
           <i className="column is-2 fas fa-gamepad fa-3x"></i>
           <h4 className="column has-text-left pl-5">AniGame</h4>
         </div>
-        <div className="devs columns">
+        <div className={`${styles.devs} columns`}>
           <p className="pl-4 is-size-7">
             Developed by{' '}
             <a href="https://tomchestnut.dev" target="_blank" rel="noreferrer">

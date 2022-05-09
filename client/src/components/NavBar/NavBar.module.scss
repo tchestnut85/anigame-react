@@ -5,3 +5,10 @@
 .searchbar {
   margin-right: 1rem;
 }
+
+/* Tablet Size */
+@media screen and (max-width: 768px) {
+  .container {
+    padding-bottom: 0.5rem;
+  }
+}

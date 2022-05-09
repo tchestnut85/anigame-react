@@ -39,3 +39,14 @@
 .streamUrl {
   text-align: left;
 }
+
+@media screen and (max-width: 768px) {
+  .streamContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .streamUrl {
+    text-align: center;
+  }
+}

@@ -16,3 +16,23 @@
     color: #0645ad;
   }
 }
+
+/* Tablet Size */
+@media screen and (max-width: 768px) {
+  .container,
+  .title,
+  .devs {
+    display: flex;
+  }
+}
+
+/* Large Mobile Size */
+@media screen and (max-width: 426px) {
+  .container,
+  .title,
+  .devs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -10,7 +10,7 @@ export const Hero = () => {
           <i className="is-white fas fa-gamepad fa-5x"></i>
         </div>
         <div className="hero-container column container has-text-left">
-          <h1 className="title app-title">AniGame</h1>
+          <h1 className={`title ${styles.title}`}>AniGame</h1>
           <br />
           <h2 className={`subtitle ${styles.description}`}>
             Search for your favorite video games to find related Anime!

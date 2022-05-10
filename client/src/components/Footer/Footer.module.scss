@@ -1,0 +1,38 @@
+@import '../../sass/mixins';
+
+.container {
+  background-color: rgb(207, 199, 198);
+
+  h4 {
+    @include defaultH4;
+    font-size: 2rem;
+  }
+}
+
+.githubIcon {
+  color: black;
+
+  &:hover {
+    color: #0645ad;
+  }
+}
+
+/* Tablet Size */
+@media screen and (max-width: 768px) {
+  .container,
+  .title,
+  .devs {
+    display: flex;
+  }
+}
+
+/* Large Mobile Size */
+@media screen and (max-width: 426px) {
+  .container,
+  .title,
+  .devs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

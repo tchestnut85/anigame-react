@@ -1,0 +1,15 @@
+@mixin defaultBackground($hasPointer) {
+  background-color: $background-light;
+  border: 1px solid $off-black;
+  border-radius: 4px;
+  box-shadow: 0 0 4px $background-dark;
+
+  @if hasPointer == true {
+    cursor: pointer;
+  }
+}
+
+@mixin defaultH4() {
+  font-family: 'Press Start 2P', cursive;
+  vertical-align: top;
+}

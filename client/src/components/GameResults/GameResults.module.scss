@@ -1,0 +1,53 @@
+@import '../../sass/variables';
+@import '../../sass/mixins';
+
+.results {
+  font-size: 3rem;
+  font-family: $font-primary;
+  color: $off-white;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.searchResults {
+  @include defaultBackground($hasPointer: true);
+
+  &:hover {
+    box-shadow: 0 0 10px $off-white;
+    border: 1px solid $off-white;
+  }
+
+  h3 {
+    font-family: $font-secondary;
+    color: $playstation-blue;
+    text-decoration: underline;
+    font-size: 32px;
+  }
+
+  h4 {
+    @include defaultH4;
+  }
+
+  p {
+    font-family: $font-primary;
+  }
+}
+
+.image {
+  height: 15rem;
+  width: 15rem;
+}
+
+@media screen and (max-width: 1300px) {
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .imgColumn {
+    display: flex !important;
+    justify-content: center;
+  }
+}

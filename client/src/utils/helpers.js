@@ -1,25 +1,31 @@
 import dayjs from 'dayjs';
 
 export function capitalizeFirstLetter(string) {
-	return `${string[0].toUpperCase()}${string.slice(1)}`;
+  return `${string[0].toUpperCase()}${string.slice(1)}`;
 }
 
 export function capitalizeWords(string) {
-	return string
-		.split(' ')
-		.map(word => capitalizeFirstLetter(word))
-		.join(' ');
+  return string
+    .split(' ')
+    .map(word => capitalizeFirstLetter(word))
+    .join(' ');
 }
 
 export function formatDate(date) {
-	return dayjs(date).format('MMM DD, YYYY');
+  return dayjs(date).format('MMM DD, YYYY');
 }
 
 export function getYear(dateString) {
-	const parts = dateString.split('-');
-	return parts[0];
+  const parts = dateString.split('-');
+  return parts[0];
 }
 
 export function replaceSpaces(string) {
-	return string.toLowerCase().replaceAll(' ', '_');
+  return string.toLowerCase().replaceAll(' ', '_');
+}
+
+export function getAnimeMatches(arr = [], title = '') {
+  return arr.filter(item =>
+    item.attributes.canonicalTitle.toLowerCase().includes(title.toLowerCase())
+  );
 }

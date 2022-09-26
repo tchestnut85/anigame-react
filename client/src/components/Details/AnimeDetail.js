@@ -23,10 +23,10 @@ export const AnimeDetail = () => {
     description,
   } = anime?.attributes || {};
 
-  if (!animeDetailId && !gameDetailId) {
-    history.push('/anigame-react');
-    return null;
-  }
+  // if (!animeDetailId && !gameDetailId) {
+  //   history.push('/anigame-react');
+  //   return null;
+  // }
 
   return (
     <>

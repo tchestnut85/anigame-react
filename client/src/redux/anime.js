@@ -1,7 +1,6 @@
 import { fetchAnimeData, fetchAnimeStreamUrls } from '../api/animeRequest';
 import { getAnimeMatches } from '../utils/helpers';
-import { ERRORS } from '../constants/modalValues';
-import { STATUSES } from '../constants/api';
+import { ERRORS, STATUSES } from '../constants';
 
 // action types
 const SET_ANIME_DATA = 'SET_ANIME_DATA';

@@ -14,9 +14,9 @@ export const GameDetail = () => {
     state.game.games.find(game => game.id === gameDetailId)
   );
 
-  if (!gameDetailId && animeDetailId === null) {
-    history.push('/anigame-react');
-  }
+  // if (!gameDetailId && animeDetailId === null) {
+  //   history.push('/anigame-react');
+  // }
 
   return (
     <>

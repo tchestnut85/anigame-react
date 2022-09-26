@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { PROXY } from '../constants/api';
+import { PROXY } from '../constants';
 
 const GAMESPOT_URL = '/http://www.gamespot.com/api';
 const gamespotApiKey = process.env.REACT_APP_GAMESPOT_KEY;

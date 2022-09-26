@@ -1,6 +1,6 @@
 import { fetchGameData, fetchGameScore } from '../api/gameRequests';
 
-import { STATUSES } from '../constants/api';
+import { STATUSES } from '../constants';
 
 // action types
 const SET_GAME_DATA = 'SET_GAME_DATA';

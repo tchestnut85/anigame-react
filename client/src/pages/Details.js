@@ -7,6 +7,7 @@ import { AnimeDetail } from '../components/Details/AnimeDetail';
 
 import { clearGameDetailId } from '../redux/game';
 import { clearAnimeDetails } from '../redux/anime';
+import { ROUTES } from '../constants';
 
 import styles from '../App.module.scss';
 
@@ -23,7 +24,7 @@ export const Details = () => {
       <DetailComp />
       <Link
         className="button is-dark"
-        to={'/anigame-react'}
+        to={ROUTES.home}
         onClick={() =>
           dispatch(gameId ? clearGameDetailId() : clearAnimeDetails())
         }

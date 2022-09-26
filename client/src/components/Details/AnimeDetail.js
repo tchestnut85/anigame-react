@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { getYear } from '../../utils/helpers';
 import { ROUTES } from '../../constants';
+import { useScroll } from '../../hooks/useScroll';
 
 import styles from './Detail.module.scss';
 
@@ -27,6 +28,8 @@ export const AnimeDetail = () => {
   if (!animeDetailId && !gameDetailId) {
     history.push(ROUTES.home);
   }
+
+  useScroll();
 
   return (
     <>

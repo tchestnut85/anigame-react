@@ -1,6 +1,6 @@
 import { ConsoleBtn } from './ConsoleBtn';
 import React from 'react';
-import { consoles } from '../../constants/consoleList';
+import { consoles } from '../../constants';
 
 import styles from './ConsoleButtons.module.scss';
 

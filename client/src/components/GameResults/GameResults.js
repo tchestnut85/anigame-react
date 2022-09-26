@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,18 +11,30 @@ import { setGameDetails } from '../../redux/game';
 
 import styles from './GameResults.module.scss';
 
+const SCROLL_POSITIONS = {
+  scrollTopNoGames: 0,
+  scrollTopGames: 230,
+};
+
 export const GameResults = () => {
   const dispatch = useDispatch();
   const query = useSelector(state => state.query);
   const { games, score } = useSelector(state => state.game);
+  const gamesLen = games.length;
 
   const handleSetGameDetails = id => {
     dispatch(setGameDetails(id));
   };
 
+  useEffect(() => {
+    if (!gamesLen) window.scroll({ top: SCROLL_POSITIONS.scrollTopNoGames });
+
+    if (!!gamesLen) window.scroll({ top: SCROLL_POSITIONS.scrollTopGames });
+  }, [gamesLen]);
+
   return (
     <>
-      {games.length ? (
+      {gamesLen ? (
         <div>
           <p className={styles.results}>
             Games found for {capitalizeWords(query)}:

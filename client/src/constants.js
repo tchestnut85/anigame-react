@@ -5,6 +5,12 @@ export const STATUSES = {
   OK_CODE: 200,
 };
 
+export const HOME_ROUTE = '/anigame-react';
+export const ROUTES = {
+  home: HOME_ROUTE,
+  title: `${HOME_ROUTE}/:title`,
+};
+
 export const CONSOLES = [
   { name: 'playstation', color: 'link' },
   { name: 'xbox', color: 'success' },

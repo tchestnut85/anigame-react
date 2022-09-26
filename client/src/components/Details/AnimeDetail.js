@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 
 import { getYear } from '../../utils/helpers';
@@ -7,9 +6,7 @@ import { getYear } from '../../utils/helpers';
 import styles from './Detail.module.scss';
 
 export const AnimeDetail = () => {
-  const history = useHistory();
   const animeDetailId = useSelector(state => state?.anime.detailId);
-  const gameDetailId = useSelector(state => state?.game.detailId);
   const anime = useSelector(state =>
     state.anime.animeTitles.find(title => title.id === animeDetailId)
   );
@@ -22,11 +19,6 @@ export const AnimeDetail = () => {
     ageRating,
     description,
   } = anime?.attributes || {};
-
-  // if (!animeDetailId && !gameDetailId) {
-  //   history.push('/anigame-react');
-  //   return null;
-  // }
 
   return (
     <>

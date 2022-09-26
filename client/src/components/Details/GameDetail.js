@@ -1,14 +1,27 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 
 import { getYear } from '../../utils/helpers';
+import { ROUTES } from '../../constants';
+import { useScroll } from '../../hooks/useScroll';
+
 import styles from './Detail.module.scss';
 
 export const GameDetail = () => {
+  const history = useHistory();
+
   const gameDetailId = useSelector(state => state?.game.detailId);
+  const animeDetailId = useSelector(state => state?.anime.detailId);
   const game = useSelector(state =>
     state.game.games.find(game => game.id === gameDetailId)
   );
+
+  if (!gameDetailId && !animeDetailId) {
+    history.push(ROUTES.home);
+  }
+
+  useScroll();
 
   return (
     <>

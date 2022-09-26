@@ -15,7 +15,6 @@
 
 ### Bugs
 
-- [ ] Add Scrolling to game result section after a search completes
-- [ ] Fix when clicking back to results button on Details page, it is triggering the search again/error modal pops up again if no results found
-- [ ] no anime found modal is appearing even if anime results were found
-- [ ] fix scroll position when going from single detail back to results
+- [x] Add Scrolling to game result section after a search completes
+- [ ] Fix when clicking back to results button on Details page, it is triggering the search again and the "no anime found" error modal pops up again if no anime results found
+- [x] fix scroll position when going from single detail back to results

@@ -1,15 +1,11 @@
-import {
-  Route,
-  BrowserRouter as Router,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import { Details } from './pages/Details';
 import { Footer } from './components/Footer/Footer';
 import { Hero } from './components/Hero/Hero';
 import { Main } from './pages/Main';
+import { NotFound } from './pages/NotFound';
 import { NavBar } from './components/NavBar/NavBar';
 
 import store from './redux/store';
@@ -29,7 +25,7 @@ function App() {
             <Switch>
               <Route exact path={ROUTES.home} component={Main} />
               <Route exact path={ROUTES.title} component={Details} />
-              <Route render={() => <Redirect to={ROUTES.home} />} />
+              <Route path="*" component={NotFound} />
             </Switch>
           </Router>
           <Footer />

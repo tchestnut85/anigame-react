@@ -22,6 +22,7 @@ export const MESSAGES = {
   errors: {
     empty: 'You must enter something to search for.',
   },
+  notFound: 'Page not found, redirecting to homepage.',
 };
 
 export const ERRORS = {

@@ -7,8 +7,8 @@ import { ReviewStars } from '../ReviewStars/ReviewStars';
 import { capitalizeWords, replaceSpaces } from '../../utils/helpers';
 import { reviewTypes } from '../../utils/renderScore';
 import { getAnimeData, getAnimeStreamUrls } from '../../redux/anime';
-
 import { setAnimeDetails } from '../../redux/anime';
+import { ROUTES } from '../../constants';
 
 import styles from './AnimeResults.module.scss';
 
@@ -86,7 +86,7 @@ export const AnimeResults = () => {
                     id={`${anime.attributes.canonicalTitle}-info`}
                   >
                     <Link
-                      to={`/anigame-react/${replaceSpaces(
+                      to={`${ROUTES.home}/${replaceSpaces(
                         anime.attributes.canonicalTitle
                       )}`}
                       onClick={() => handleSetAnimeDetails(anime.id)}

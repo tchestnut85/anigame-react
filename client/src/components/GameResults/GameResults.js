@@ -8,6 +8,7 @@ import { replaceSpaces } from '../../utils/helpers';
 import { reviewTypes } from '../../utils/renderScore';
 import { capitalizeWords, formatDate } from '../../utils/helpers';
 import { setGameDetails } from '../../redux/game';
+import { ROUTES } from '../../constants';
 
 import styles from './GameResults.module.scss';
 
@@ -67,7 +68,7 @@ export const GameResults = () => {
                   </div>
                   <div id="game-header" className="column has-text-centered">
                     <Link
-                      to={`/anigame-react/${replaceSpaces(query)}`}
+                      to={`${ROUTES.home}/${replaceSpaces(query)}`}
                       onClick={() => handleSetGameDetails(id)}
                     >
                       <h3>{name}</h3>
